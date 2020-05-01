@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Favicon -->
+   <link rel="icon" href="{% static 'img/core-img/np_logo_2.jpg' %}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/classy-nav.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css.map' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'scss/_fonts.scss' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'scss/_mixin.scss' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'scss/_responsive.scss' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'scss/_theme_color.scss' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'scss/style.scss' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'scss/_variables.scss' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'fonts/classy.eot' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'fonts/classy.svg' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'fonts/classy.ttf' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'fonts/classy.woff' %}" type="application/font-woff">
+    
+</head>
+
+<body>
+    
+<!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <header class="header-area wow fadeInDown" data-wow-delay="500ms" >
+        <!-- Top Header Area -->
+        <div class="top-header-area" style="background-color: transparent !important;">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 d-flex align-items-center justify-content-between">
+                        <!-- Logo Area -->
+                        <div class="logo">
+                            <a href="{% url 'videosub:startpage' %}"><img src="{% static '/img/core-img/net-prime-logo1.png' %}" alt="NetPrime" style="height: 50px; width: 170px;"></a>
+                        </div>
+
+                        <!-- Pricing & Login Area -->
+                        <div class="search-login-area d-flex align-items-center">
+                            <!-- Pricing Area -->
+                            <div class="login-area">
+                                <a href="{% url 'videosub:membership' %}"><span>&nbsp;Pricing Plans</span> <i class="fa fa-credit-card" aria-hidden="true"></i></a>
+                            </div>
+                            <!-- Login Area -->
+                            <div class="login-area">
+                                <a href="{% url 'videosub:loginreg' %}"><span>Login</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% block content%}
+{%endblock%}
+<footer class="footer-area">
+    <!-- Copywrite Area -->
+    <div class="copywrite-content">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 col-sm-5">
+                    <!-- Copywrite Text -->
+                    <p class="copywrite-text"><a href="#"></a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Developed by <a href="" target="_blank">NETPRIME</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</p>
+                </div>
+                <div class="col-12 col-sm-7">
+                    <!-- Footer Nav -->
+                    <div class="footer-nav" style="color: #666666;">
+                        <ul>
+                            <a style="cursor: pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                                <a style="cursor:pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a style="cursor:pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a style="cursor:pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                <a style="cursor:pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <!-- All Plugins js -->
+    <script src="{% static 'js/plugins/plugins.js' %}"></script>
+    <!-- Active js -->
+    <script src="{% static 'js/active.js' %}"></script>
+    
+</html> 

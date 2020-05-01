@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+<!-- titile -->
+{% block title %} Enjoy-Movie {% endblock %}
+
+    {% block content %}
+    <div class="container">
+        {% for i in get_movie_show %}
+    <h1>{{ i.movie.movie_name }}</h1> 
+    <p>{{i.title}} | <i class="fa fa-clock-o"></i>&nbsp;{{i.movie.duration_hours}} Hrs {{i.movie.duration_minutes}} Mins | {{i.movie.release_date}}</p>
+    </div>
+    <div class="container mt-5 mb-5"> 
+    <main>
+        <div id="container">
+            <video
+                mediagroup="a11y_vid"
+                controls
+                crossorigin
+                playsinline
+                poster="{{i.movie_thumbnail.url}}"
+                id="player"
+            >
+                <!-- Video files -->
+                <!-- <source
+                    src="{{i.movie_576p.url}}"
+                    type="video/mp4"
+                    size="576"
+                /> -->
+                <source
+                    src="{{i.movie_720p.url}}"
+                    type="video/mp4"
+                    size="720"
+                />
+                <!-- <source
+                    src="{{i.movie_1080p.url}}"
+                    type="video/mp4"
+                    size="1080"
+                /> -->
+
+                <!-- <track
+                    "merge_with_existing": true,
+                    "masters": [
+                            {
+                                    "url": "http://learning-services-media.brightcove.com/audio/celtic_lullaby.m4a",
+                                    "language": "en",
+                                    "variant": "alternate"
+                            },
+                            {
+                                    "url": "http://learning-services-media.brightcove.com/audio/audio1.m4a",
+                                    "language": "en",
+                                    "variant": "commentary"
+                            }
+                    ]
+                /> -->
+                
+                Caption files
+                <!-- <track
+                    kind="captions"
+                    label="English"
+                    srclang="en"
+                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
+                    default
+                />
+                <track
+                    kind="captions"
+                    label="Français"
+                    srclang="fr"
+                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt"
+                /> -->
+            </video>
+            
+        </div>
+    </main>
+    <div class="button-css">
+        <a href="{{ i.movie_720p.url }}" download><span>&nbsp;Download Movies</span> <i class="fa fa-download" aria-hidden="true"></i></a>
+    </div>
+    {% endfor %}
+</div>  
+    {% endblock %}
+
+    {% block js %}
+    <script type="text/javascript">
+        video = document.getElementsByTagName("player");
+        
+        for (i=0; i < video.videoTracks.length; i++) {
+          if (video.videoTracks[i].language === 'sgn-asf') {
+            video.videoTracks[i].selected = true;
+          } else {
+            video.videoTracks[i].selected = false;
+          }
+        }
+    </script>
+    {% endblock js %}

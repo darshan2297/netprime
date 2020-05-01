@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+<!-- titile -->
+{% load static %}
+{% block title %} Edit Profile {% endblock %}
+
+{% block css %}
+
+<style>
+  .image--cover {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: top right;
+    border: 5px #f82249;
+    border-style: ridge;
+  }
+</style>
+
+{% endblock css%}
+{% block content %} 
+    <div class="container mt-5 mb-5">
+    <h1 class="text-center mb-3">Edit Profile</h1>
+    <div class="row">
+        <div class="col-12 mb-3">
+            <center><a><img src="{{log_member.profile_pic.url}}" class="image--cover"></a></center>
+        </div>
+    </div>
+      <form action="{% url 'videosub:editprofile' %}" method="POST" id="editprofile" enctype="multipart/form-data">
+        {% csrf_token %}   
+        <div class="form-row mb-3">
+            <div class="contact-form-area">
+                  <div class="row">
+                      <div class="col-12">
+                        <input type="file" class="form-control" id="imageUpload" name="imageUpload" value="{{log_member.profile_pic.url}}" aria-describedby="inputGroupPrepend2"   alt="" required>
+                        <small id="emailHelp" class="form-text text-muted">Whenever you update your profile you must be select your profile image.</small>
+
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <input type="text" class="form-control" id="uname" name="uname"  aria-describedby="inputGroupPrepend2" value="{{log_member.uname}}" placeholder="Username" required>
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <input type="email" class="form-control" id="email"  name= "email" value="{{log_member.email}}" placeholder="Email" aria-describedby="emailHelp">
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <input type="text" class="form-control" id="fname" name="fname" value="{{log_member.first_name}}" placeholder="Firstname" required>
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <input type="text" class="form-control" id="lname" name="lname" value="{{log_member.last_name}}" placeholder="Lastname" required>
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <input type="text" class="form-control" id="mobileno" name="mobileno" value="{{log_member.mobile_no}}" placeholder="Mobile No" required>
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <input type="text" class="form-control" id="country" name="country" value="{{log_member.country}}" placeholder="Country" required>
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <input type="text" class="form-control" id="memship_type" name="memship_type" value="{{log_member.membership.membership_type}}"  readonly>
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <input type="number" class="form-control" id="amount" name="amount" value="{{log_member.membership.price}}" readonly>
+                      </div>
+                      <div class="col-12">
+                        <input type="number" class="form-control" id="remaining_days" name="remaining_days" value="{{log_member.remaining_days}}" readonly>
+                      </div>
+                        <input type="hidden" name="mid" value="{{log_member.mid}}">
+                      <div class="col-md-12 mt-3 mb-3">
+                        <h5><b>Social Part</b></h5>
+                      </div>
+                      <div class="col-12">
+                        <input type="text" class="form-control" id="facebook" name="facebook" aria-describedby="inputGroupPrepend2" value="{{log_member.facebook}}" placeholder="Facebook Link" required>
+                      </div>
+                      <div class="col-12">
+                        <input type="text" class="form-control" id="twitter" name="twitter" aria-describedby="inputGroupPrepend2" value="{{log_member.twitter}}" placeholder="Twitter Link" required>
+                      </div>
+                      <div class="col-12">
+                        <input type="text" class="form-control" id="linkedin" name="linkedin" aria-describedby="inputGroupPrepend2" value="{{log_member.linkedin}}" placeholder="LinkedIn Link" required>
+                      </div>
+                      <div class="col-12">
+                        <input type="text" class="form-control" id="instagram" name="instagram" aria-describedby="inputGroupPrepend2" value="{{log_member.instagram}}" placeholder="Instagram Link" required>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit"   class="btn egames-btn w-100">Update Now</button>
+                      </div>
+                  </div>
+                </div>
+            </div>
+  </form>
+    </div>
+    {% endblock %}
+
+{% block js %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    
+    <script>
+        $().ready(function() {
+            // validate signup form on keyup and submit
+            $("#editprofile").validate({
+                rules: {
+                    imageUpload:"required",
+                    imageUpload: {
+                      required: true,
+                      accept: "image/*",
+                    },
+                    uname:"required",
+                    uname: {
+                        required: true,
+                    },
+                    email:"required",
+                    email: {
+                        required: true,
+                    },
+                    fname:"required",
+                    fname: {
+                        required: true,
+                    },
+                    lname:"required",
+                    lname: {
+                        required: true,
+                    },
+                    mobileno:"required",
+                    mobileno: {
+                        required: true,
+                    },
+                    country:"required",
+                    country: {
+                        required: true,
+                    },
+                    facebook:"required",
+                    facebook: {
+                        required: true,
+                    },
+                    linkedin:"required",
+                    linkedin: {
+                        required: true,
+                    },
+                    twitter:"required",
+                    twitter: {
+                        required: true,
+                    },
+                    instagram:"required",
+                    instagram: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    imageUpload:{
+                        required: "Please provide your image",
+                    },
+                    uname: {
+                        required: "Please enter a your username",
+                    },
+                    email: {
+                        required: "Please provide a email",
+                    },
+                    fname: {
+                      required: "Please enter a your firstname",
+                    },
+                    lname: {
+                      required: "Please enter a your lastname",
+                    },
+                    mobileno: {
+                      required: "Please enter a your mobileno",
+                    },
+                    country: {
+                      required: "Please enter a your country",
+                    },
+                    facebook: {
+                        required: "Please provide a facebook link",
+                    },
+                    linkedin: {
+                        required: "Please provide a linkedin link",
+                    },
+                    twitter: {
+                        required:"Please provide a twitter link",
+                    },
+                    instagram: {
+                        required: "Please provide a instagram link",
+                    },
+                }
+            });
+        });
+        </script>
+    {% endblock js %}

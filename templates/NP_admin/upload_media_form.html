@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+{% extends 'NP_admin/admin-master.html' %}
+
+{% block css%}
+<style>
+    .input-file input[type="file"] {
+        visibility: hidden;
+        width: 1px;
+        height: 1px;
+      }
+      .input-file .btn {
+        background-color: #ddd;
+        border-color: #ccc;
+        color: #333;
+      }
+      .input-file .file-selected {
+        font-size: 10px;
+        text-align: center;
+        width: 100%;
+        display: block;
+      }
+</style>
+
+{% endblock css %}
+
+{% block content %}
+
+
+<div id="right-panel " class="right-panel ">
+    <div class="content">
+    <div class="container mt-5 mb-5">
+    <div class="card">
+        <div class="card-header">
+            <strong class="">Upload Movies</strong>
+            
+        </div>
+        
+        <div class="card-body card-block">
+            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                {% csrf_token %}
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="movie_name" class=" form-control-label">Movie Name</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="media_name" name="media_name" placeholder="Type Media Name" class="form-control"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="duration_hours" class=" form-control-label">Duration Hours</label></div>
+                    <div class="col-12 col-md-9"><input type="number" id="duration_hours" name="duration_hours" placeholder="Type Hours" class="form-control"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="duration_minutes" class=" form-control-label">Duration Minutes</label></div>
+                    <div class="col-12 col-md-9"><input type="number" id="duration_minutes" name="duration_minutes" placeholder="Type Minutes" class="form-control"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="rel_date" class=" form-control-label">Relased Date</label></div>
+                    <div class="col-12 col-md-9"><input type="date" id="rel_date" name="rel_date" placeholder="Type Relased Date" class="form-control"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="language" class=" form-control-label">Movie Language</label></div>
+                    <div class="col-12 col-md-9"><input type="text" id="language" name="language" placeholder="Type Movie Language" class="form-control"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="description" class=" form-control-label">Movie Description</label></div>
+                    <div class="col-12 col-md-9"><textarea name="description" id="description" rows="9" placeholder="Type Movie Description...." class="form-control"></textarea></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="select_main_cat" class=" form-control-label">Select Main Catagory</label></div>
+                    <div class="col-12 col-md-9">
+                        <select name="select_main_cat" id="select_main_cat" class="form-control">
+                            <option value="None">Please Select Main Catagory</option>
+                            {% for mcat in main_cat%}
+                                <option value="{{mcat.main_catagory}}">{{mcat.main_catagory}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="select_sub_cat" class=" form-control-label">Select Sub Catagory</label></div>
+                    <div class="col-12 col-md-9">
+                        <select name="select_sub_cat" id="select_sub_cat" class="form-control">
+                            <option value="None">Please Select Sub Catagory</option>
+                            {% for scat in sub_cat%}
+                                <option value="{{scat.sub_catagory}}">{{scat.sub_catagory}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="select_type_cat1" class=" form-control-label">Select Type Catagory 1 </label></div>
+                    <div class="col-12 col-md-9">
+                        <select name="select_type_cat1" id="select_type_cat1" class="form-control">
+                            <option value="None">Please Select Type Catagory 1 </option>
+                            {% for tcat in type_cat%}
+                                <option value="{{tcat.type_catagory}}">{{tcat.type_catagory}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="movie_poster" class=" form-control-label">Movie Poster</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="movie_poster" name="movie_poster" class="form-control-file"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="t_thumbnail" class=" form-control-label">Trailer Thumbnail</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="t_thumbnail" name="t_thumbnail" class="form-control-file"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="movie_trailer_576p" class=" form-control-label">Trailer 576p</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="movie_trailer_576p" name="movie_trailer_576p" class="form-control-file"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="movie_trailer_720p" class=" form-control-label">Trailer 720p</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="movie_trailer_720p" name="movie_trailer_720p" class="form-control-file"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="movie_trailer_1080p" class=" form-control-label">Trailer 1080p</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="movie_trailer_1080p" name="movie_trailer_1080p" class="form-control-file"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="m_thumbnail" class=" form-control-label">Movie Thumbnail</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="m_thumbnail" name="m_thumbnail" class="form-control-file"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="media_576p" class=" form-control-label">Movie 576p</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="media_576p" name="media_576p" class="form-control-file"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="media_720p" class=" form-control-label">Movie 720p</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="media_720p" name="media_720p" class="form-control-file"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="media_1080p" class=" form-control-label">Movie 1080p</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="media_1080p" name="media_1080p" class="form-control-file"></div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="m_bg" class=" form-control-label">Movie Background</label></div>
+                    <div class="col-12 col-md-9"><input type="file" id="m_bg" name="m_bg" class="form-control-file"></div>
+                </div>
+                <hr class="my-5">
+                <div class="mb-3">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" >Upload</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+                </div>    
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Upload Movies Or Webseries</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Are You Sure Upload This Movie or Webseries?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success">Upload</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+{% if messages %}
+{% for message in messages %}
+{% if message.tags%}
+<script type="text/javascript">
+    alert('{{ message }}');
+</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+{% endblock content %}
+
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+{% endblock js %}

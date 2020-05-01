@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Subscription</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/core-img/np_logo_2.jpg' %}">
+
+
+    <!-- css -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600">
+    <!-- css -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600">
+   <!-- css -->
+   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css">
+   <script src="{% static 'js/modernizr.js' %}"></script> <!-- Modernizr -->
+   <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">	
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- header css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css.map' %}">
+    <link rel="stylesheet" href="{% static 'fonts/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
+
+	<!-- form css -->
+	<link rel="stylesheet" href="{% static 'css/register.css' %}">
+	<style>
+        .error{
+            color: #f82249;
+        }
+    </style>
+   
+</head>
+
+
+<body style="background-size: cover !important;">
+	<!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <header class="header-area wow fadeInDown" data-wow-delay="500ms">
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 d-flex align-items-c++enter justify-content-between">
+                        <!-- Logo Area -->
+                        <div class="logo">
+                            <a href="{% url 'videosub:startpage' %}"><img src="{% static '/img/core-img/net-prime-logo1.png' %}" alt="NetPrime" style="height: 50px; width: 170px;"></a>
+                        </div>
+
+                        <!-- Pricing & Login Area -->
+                        <div class="search-login-area d-flex align-items-center">
+                            <!-- Pricing Area -->
+                            <div class="login-area">
+                                <a href="{% url 'videosub:membership' %}"><span>&nbsp;Pricing Plans</span> <i class="fa fa-credit-card" aria-hidden="true"></i></a>
+                            </div>
+                            <!-- Login Area -->
+                            <div class="login-area">
+                                <a href="{% url 'videosub:loginreg' %}"><span>Login</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+	<div class="main"><div class="header-overlay" style="z-index: -1;"></div>
+        <div class="page-wrapper p-b-50">
+            <div class="wrapper wrapper--w790">
+                <div class="card card-5" style="background-color: black; border-radius: 0px; border: 0px;">
+                    <div class="card-heading" style="background-color: #f82249; border-radius: 0px;">
+                        <h2 class="title">Sign Up</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST" id="signup-form" class="signup-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row m-b-55">
+                                <div class="name text-white">Username</div>
+                                <div class="value">
+                                    <div class="row row-space">
+                                        <div class="col-lg-6">
+                                            <div class="input-group-desc">
+                                                <input class="input--style-5"  style="border-radius: 0px;" type="text" name="uname" id="uname" placeholder="User Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="input-group-desc">
+                                                <input class="input--style-5"  style="border-radius: 0px;" type="email" name="email" id="email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row m-b-55">
+                                <div class="name text-white">Password</div>
+                                <div class="value">
+                                    <div class="row row-space">
+                                        <div class="col-6">
+                                            <div class="input-group-desc">
+                                                <input class="input--style-5" style="border-radius: 0px;" type="password" name="password" id="password" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group-desc">
+                                                <input class="input--style-5"  style="border-radius: 0px;" type="password" name="repeatpassword" id="repeatpassword" placeholder="Repeat Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="name text-white">Image</div>
+                                <div class="value">
+                                    <div class="input-group">
+                                        <input class="input--style-5"  style="border-radius: 0px;" type="file" name="pimage" id="pimage" accept="image/png, image/jpeg">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-6">
+                                    <div class="name text-white"><b>Your Plan: {{memid1.membership_type}}</b></div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="name text-white"><b>Amount: {{memid1.price}}/- Rs.</b></div>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-12">
+                                    <div class="name text-danger"><b> Note: This Payment transaction is just testing purpose
+                                                                    so no any charges deducted form your wallet or bank account.
+                                                                    Just compelete proccess and buy membership.
+                                    </b></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                
+                                <div class="col-6">
+                                <label class="label label--block text-white">Your Favourite Movie?</label>
+                                        <div class="input-group">
+                                            <input class="input--style-5"  style="border-radius: 0px;" type="text" name="fmovie" id="fmovie">
+                                        </div>
+                                </div>
+                                <div class="col-6">
+                                    <label class="label label--block text-white">Your Favourite Webseries?</label>
+                                    <div class="input-group">
+                                        <input class="input--style-5"  style="border-radius: 0px;" type="text" name="fwebseries" id="fwebseries">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="price" value="{{memid1.price}}">
+                  
+                            <center><div>
+                                <button class="btn btn--red" style="background-color: #f82249; border-radius: 0px;" name="submit" id="submit"  type="submit">Checkout</button>
+                                <a class="btn btn--red" style="background-color: #f82249; border-radius: 0px;" role="button" href="{% url 'videosub:loginreg' %}">Sign in</a>
+                            </div></center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags%}
+    <script type="text/javascript">
+        alert('{{ message }}');
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+	
+        <!-- .cd-form -->
+</body> 
+ <!-- jQuery-2.2.4 js -->
+<script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+<!-- Active js -->
+<script src="{% static 'js/active.js' %}"></script>
+<script src="{% static 'js/jquery.validate.js' %}"></script>
+<script src="{% static 'js/register.js' %}"></script>
+	<script>
+        $().ready(function() {
+            // validate signup form on keyup and submit
+            $("#signup-form").validate({
+                rules: {
+                    pimage:"required",
+                    pimage: {
+                      required: true,
+                      accept: "image/*",
+                    },
+                    uname:"required",
+                    uname: {
+                        required: true,
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8,
+                        
+                    },
+                    repeatpassword: {
+                        required: true,
+                        minlength: 8,
+                        
+                        equalTo: "#password"
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    fmovie:"required",
+                    fmovie: {
+                        required: true,
+                    },
+                    fwebseries:"required",
+                    fwebseries: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    uname: {
+                        required: "Please enter a username",
+                    },
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 8 characters long",
+                        
+                    },
+                    repeatpassword: {
+                        required: "Please provide a Repeat password",
+                        minlength: "Your password must be at least 8 characters long",
+                        equalTo: "Please enter the same password"
+                    },
+                    email: {
+                        required:"Please enter a valid email address",
+                    },
+                    fmovie: {
+                        required:"Please enter a your favourite movie",
+                    },
+                    fwebseries: {
+                        required:"Please enter a favourite webseries",
+                    },
+                }
+            });
+        });
+        </script>
+
+        
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+<!-- titile -->
+{% block title %} All Movies {% endblock %}
+
+{% block content %}
+
+<div class="bg-pattern2">
+  <div class="container pb-5">
+        <h1 class="text-center pt-3 pb-3">All Webseries</h1>
+    <div class="row row-cols-1 row-cols-md-3">
+      {% for i in get_all_webseries %}
+      <div class="col-12 col-md-3 mb-4">
+    <div class="card-deck">
+      <div class="card">
+        <!-- <div class="card-body">movie_postemovie_posterr
+            <h5 class="card-title"></h5>
+          </div> -->
+        <a href="{% url 'videosub:webseries-detail' i.webseries_id %}" ><img src="{{i.webseries_bgimage.url}}" class="card-img-top" alt="..."></a>
+        
+        <div class="card-body p-0 pt-2" style="background-color: transparent !important;">
+            <a href="{% url 'videosub:webseries-detail' i.webseries_id %}" class="nav-link"><h6 class="mb-0">{{ i.webseries_name |upper }}</h6></a>
+            <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</p>
+            <div class="nav">
+                <a href="{% url 'videosub:catagory_list' i.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.sub_catagory|upper }}</a>    
+                <a href="{% url 'videosub:movies_catagory_movie' i.type_catagory.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.type_catagory|upper }}</a>
+            </div>
+            
+        </div>
+      </div>
+      
+    </div>
+    </div>
+    {% endfor %}
+    </div>
+    </div>
+    </div>
+    
+    {% endblock %}

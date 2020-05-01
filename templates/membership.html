@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Subscription</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/core-img/np_logo_2.jpg' %}">
+
+   <!-- css -->
+   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css">
+   <link rel="stylesheet" href="{% static 'css/reset.css' %}"> <!-- CSS reset -->
+   <link rel="stylesheet" href="{% static 'css/pricing.css' %}"> <!-- Resource style -->
+  
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- header css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css.map' %}">
+
+</head>
+
+
+<body>
+	<!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <header class="header-area wow fadeInDown" data-wow-delay="500ms">
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 d-flex align-items-center justify-content-between">
+                        <!-- Logo Area -->
+                        <div class="logo">
+                            <a href="{% url 'videosub:startpage' %}"><img src="{% static '/img/core-img/net-prime-logo1.png' %}" alt="NetPrime" style="height: 50px; width: 170px;"></a>
+                        </div>
+                        <!-- Pricing & Login Area -->
+                        <div class="search-login-area d-flex align-items-center">
+                            {% if member_id %}
+                                <div class="login-area">
+                                    <a href="{% url 'videosub:loginreg' %}"><span>Login</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                                </div>
+                            {% else %}
+                            <!-- Pricing Area -->
+                            <div class="login-area">
+                                <a href="{% url 'videosub:membership' %}"><span>&nbsp;Pricing Plans</span> <i class="fa fa-credit-card" aria-hidden="true"></i></a>
+                            </div>
+                            <!-- Login Area -->
+                            <div class="login-area">
+                                <a href="{% url 'videosub:loginreg' %}"><span>Login</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                            </div>
+                            {% endif  %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+		
+
+	
+	
+    <div class="container mt-100">
+		
+        <div class="header-overlay"></div>
+	<ul class="cd-pricing" style="z-index: 1;">
+		{% for mem in membership1 %}
+		<li>
+			<header class="cd-pricing-header">
+				<h2>{{mem.membership_type}}</h2>
+
+				<div class="cd-price">
+					<span>{{mem.price}}</span>
+					<span>month</span>
+				</div>
+			</header> <!-- .cd-pricing-header -->
+
+			<div class="cd-pricing-features">
+				<ul class="justify-content-center">
+					<li class="available "><em>{{mem.feature1}}</em></li>
+					<li class="available"><em>{{mem.feature2}}</em></li>
+					<li class="available"><em>{{mem.feature3}}</em></li>
+				</ul>
+			</div> <!-- .cd-pricing-features -->
+            {% if member_id %}
+                <footer class="cd-pricing-footer">
+                    <a href="{% url 'videosub:renewpage' mem.id member_id %}">Select</a>
+                </footer>
+            {% else %}    
+                <footer class="cd-pricing-footer">
+                    <a href="{% url 'videosub:register' mem.id %}">Select</a>
+                </footer> <!-- .cd-pricing-footer -->
+            {% endif %}
+        </li>
+		{% endfor %}
+    </ul> <!-- .cd-pricing -->
+    
+</div>
+
+{% if messages %}
+{% for message in messages %}
+{% if message.tags%}
+<script type="text/javascript">
+    alert('{{ message }}');
+</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+</body> 
+ <!-- jQuery-2.2.4 js -->
+ <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+<!-- Active js -->
+<script src="{% static 'js/active.js' %}"></script>
+<script src="{% static 'js/velocity.min.js' %}"></script>
+<!-- Resource jQuery -->
+<script src="{% static 'js/main.js' %}"></script> 
+<script src="{% static 'js/jquery.validate.js' %}"></script>
+<script src="{% static 'js/modernizr.js' %}"></script> <!-- Modernizr -->
+
+</html>

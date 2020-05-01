@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+{% load static %}
+<!-- titile -->
+{% block title %} Contact Us {% endblock %}
+
+{% block css %}
+<style>
+  
+</style>
+{% endblock %}
+
+    {% block content %}
+    <div class="mt-5">
+        <h1 class="text-center">Contact Us</h1>
+    </div>
+    <!-- ##### Contact Area Start ##### -->
+    <section class="contact-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <div class="contact-content mb-100">
+                                <a href="{% url 'videosub:home' %}"><img src="{% static '/img/core-img/net-prime-logo1.png' %}" alt="NetPrime" style="height: 65px; width: 200px;"></a>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris velit arcu, scelerisque dignissim massa quis, mattis facilisis erat.</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <div class="contact-content mb-100">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris velit arcu, scelerisque dignissim massa quis, mattis facilisis erat. Aliquam erat volutpat. Sed efficitur diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris velit arcu, scelerisque.</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <div class="contact-content mb-100">
+                                <!-- Single Contact Info -->
+                                <div class="single-contact-info d-flex align-items-center">
+                                    <div class="title">
+                                        <p>Address</p>
+                                    </div>
+                                    <p> 1005, Businessfair, Narayn Nagar, 
+                                        Khodiyar Krupa Society, Katargam, Surat, 
+                                        Gujarat 395004
+                                    </p>
+                                </div>
+
+                                <!-- Single Contact Info -->
+                                <div class="single-contact-info d-flex align-items-center">
+                                    <div class="title">
+                                        <p>Phone</p>
+                                    </div>
+                                    <p>+91 92656 969629</p>
+                                </div>
+
+                                <!-- Single Contact Info -->
+                                <div class="single-contact-info d-flex align-items-center">
+                                    <div class="title">
+                                        <p>E-mail</p>
+                                    </div>
+                                    <p>darshanvankawala22@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Area -->
+                <div class="col-12">
+                    <!-- Contact Form -->
+                    {% if i == True %}
+                    <!-- <h4 class="mb-30">Email Send</h4> -->
+                    <div class="mb-5 text-center">
+                        <h1> Thank You For Contact Us&nbsp;<i class="fa fa-handshake-o" aria-hidden="true"></i></h1>
+                        <h2> Your Mail Has Been Send&nbsp;<i class="fa fa-paper-plane"></i></h2>
+                        <p> Very Short Time In Our Team Contact To You Via Email&nbsp;<i class="fa fa-envelope"></i></p>
+                    </div>
+                    {% else %}
+                    <h4 class="mb-70">Get In Touch</h4>
+                    <div class="contact-form-area mb-100">
+                        <form action="" method="post" id="contact">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Name*">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <input type="email" class="form-control"  name="email" id="email" placeholder="Email*">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn egames-btn w-100" type="submit">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <!-- Google Maps -->
+                    <div class="map-area">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d16941.90333656541!2d72.83019529999997!3d21.22441789999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1587653826633!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Contact Area End ##### -->
+
+    {% endblock %}
+
+{% block js %}
+<script src="{% static 'js/jquery.validate.js' %}"></script>
+<script>
+    $().ready(function() {
+        // validate signup form on keyup and submit
+        $("#contact").validate({
+            rules: {
+                name:"required",
+                name: {
+                    required: true,
+                },
+                email:"required",
+                email: {
+                    required: true,
+                },
+                subject:"required",
+                subject: {
+                    required: true,
+                },
+                message:"required",
+                message: {
+                    required: true,
+                },
+            },
+            messages: {
+                name: {
+                    required: "Please enter a your name",
+                },
+                email: {
+                    required: "Please provide a email",
+                },
+                subject: {
+                    required: "Please enter subject",
+                },
+                message: {
+                    required: "Please enter message",
+                },
+            }
+        });
+    });
+    </script>
+{% endblock js %}

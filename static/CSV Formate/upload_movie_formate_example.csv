@@ -1,0 +1,10 @@
+movie_name,duration_hours,duration_minutes,release_date,language,description,main_catagory,sub_catagory,type_catagory1,type_catagory2,type_catagory3,type_catagory4,type_catagory5,movie_trailer_thumbnail,movie_trailer,movie_thumbnail,movie_576p,movie_720p,movie_1080p,movie_bgimage
+any movie name,movie hours,movie minutes,movie relase date,movie language,movie description,Movies OR ,Bollywood OR,Action OR,Action OR,Action OR,Action OR,Action OR,trailer thumbnail path ,trailer path ,media thumnail path ,media_576p file path,media_720p file path,media_1080p file path,media_bgimage file path
+,,,,,,None,Hollywood OR,Romance OR,Romance OR,Romance OR,Romance OR,Romance OR,,,,,,,
+,,,,,,,Tollywood OR,Drama OR,Drama OR,Drama OR,Drama OR,Drama OR,,,,,,,
+,,,,,,,None,Horror OR,Horror OR,Horror OR,Horror OR,Horror OR,,,,,,,
+,,,,,,,,Fiction OR,Fiction OR,Fiction OR,Fiction OR,Fiction OR,,,,,,,
+,,,,,,,,None,None,None,None,None,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+Movie Example,,,,,,,,,,,,,,,,,,,
+Baaghi 3,2,23,06/03/20,Hindi,"Ronnie and Vikram are brothers who share an unbreakable bond. Since childhood, Ronnie always comes to the rescue whenever Vikram falls in any trouble. Their journey begins when a certain turn in events, leads Vikram to travel abroad to complete some work. On this trip, Vikram gets kidnapped by people who are not to be messed with but as Ronnie witnesses his brother getting beaten and kidnapped, he knows that he will do whatever it takes to destroy anyone and anything that stands in the way of Vikram's safety. Ronnie goes on a rampage of destruction to see his brother safe again, even if it means that he independently has to take on an entire country.",Movies,Bollywood,Action,Romance,Drama,None,None,../../img/bg-img/war-HT.jpg,../../videos/trailer/1917 - Official Trailer [HD].mp4,../../img/bg-img/war-HT.jpg,../../videos/trailer/1917 - Official Trailer [HD].mp4,../../videos/trailer/1917 - Official Trailer [HD].mp4,../../videos/trailer/1917 - Official Trailer [HD].mp4,../../img/bg-img/war-HT.jpg

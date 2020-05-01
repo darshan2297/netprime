@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+{% load static %}
+<!-- titile -->
+{% block title %} Webseries-Detail {% endblock %}
+
+{% block css %}
+<style>
+    .watchlist{
+        display: block;
+        width: 160px;
+        height: 42px;
+        background-color: #f82249;
+        text-align: center;
+        color: #fff;
+        line-height: 42px;
+        font-size: 14px;
+        margin-left: 10px;
+        font-weight: 700;
+        border: 0px;
+        cursor: pointer;
+      }
+        @media only screen and (max-width: 767px) {
+          .watchlist{
+            width: 30px; } }
+        @media only screen and (min-width: 480px) and (max-width: 767px) {
+          .watchlist{
+            width: 50px; } }
+            .watchlist:hover, .watchlist:focus {
+          background-color: #000000;
+          font-weight: 400; 
+          transition: ease 0.5s;
+        }
+          .watchlist i {
+          display: none;
+          line-height: 42px; }
+          @media only screen and (max-width: 767px) {
+            .watchlist i {
+              display: block; } }
+        @media only screen and (max-width: 767px) {
+          .watchlist span {
+            display: none; } }
+
+      .image--cover {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        object-position: top right;
+        border: 5px #f82249;
+        border-style: ridge;
+      }
+    .cast{
+        color: #000000;
+    }  
+
+    .cast:hover{
+        color: #f82249;
+        transition: ease 0.5s;
+    }
+
+    .modal-backdrop{
+        z-index: 1 !important;
+        }    
+    
+
+</style>
+{% endblock css %}
+
+
+    {% block content %}
+
+    {% for i in get_webseries_detail %}
+    <div class=" bg-pattern2">
+    <div class="single-slide bg-img bg-overlay movie-detail " style="background-image: url('{{i.webseries_bgimage.url}}'); height: 550px;">
+        <!-- Blog Content -->
+        <!-- <div class="container h-100"> -->
+            <div class="row h-100 text-left ml-3 mr-3">
+                <div class="col-xl mt-5">
+                    <div class="blog-content p-4">
+                        <h3 class="text-white">{{i.webseries_name|upper}}</h3>
+                        <p>Duration: {{i.duration_hours}} Hrs {{i.duration_minutes}} Mins</p>
+                        <p>Release Date: {{i.release_date}}</p>
+                        <p>Language: {{i.language}}</p>
+                        <p>Description: {{i.description}} <a target="blank" style="color: #f82249; font-size: small" href="{{i.more_info}}">Know More About {{i.webseries_name|upper}}</a></p>
+                        <p>Category: {{ i.main_catagory }} | {{ i.sub_catagory }} | {{ i.type_catagory }}</p>
+                        {% for key,value in avg_review.items %}
+                            <p>Avg Ratings: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{value}}/10</p>                
+                        {% endfor %}
+                        
+                        {% if get_member_review %}
+                        {% for i in get_member_review %}
+                            <p>Your Ratings: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10 <a class="text-white"  style="font-size: small" href="" data-toggle="modal" data-target="#editreview">Edit</a></p><br>
+                               
+                            <!-- Modal -->
+                          <form action="{% url 'videosub:edit_webseries_review' i.webseries.webseries_id %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                          <div class="modal fade" id="editreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Reviews & Ratings</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="contact-form-area">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                          <input type="text" name="review" class="form-control" id="exampleInputEmail1" value="{{i.comment}}" placeholder="Give Reviews">
+                                        </div>
+                                        <div class="col-12">
+                                          <input type="text" name="rating" class="form-control" id="exampleInputPassword1" value="{{i.rating}}" placeholder="Give Ratings">
+                                          <input type="hidden" name="review_id" class="form-control" id="hiidenid" value="{{i.webseries_review_id}}">
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                          <button class="btn egames-btn w-100" data-dismiss="modal">Close</button>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                          <button class="btn egames-btn w-100" type="submit">Edit</button>
+                                      </div>
+                                    </div>
+                                </div> 
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                        {% endfor %}
+                        {% else %}
+                        <a href="" data-toggle="modal" data-target="#addreview">
+                            <p class="text-white">Your Ratings: Write Reviews & Ratings&nbsp;<i class="fa fa-star" style="color: gold;"></i></p>
+                          </a>
+                          
+                          <!-- Modal -->
+                          <form action="" method="POST" id="reviewadd" enctype="multipart/form-data">
+                            {% csrf_token %}
+                          <div class="modal fade" id="addreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle1">Reviews & Ratings</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="contact-form-area">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                          <input type="text" name="review" class="form-control" id="review" placeholder="Give Reviews">
+                                        </div>
+                                        <div class="col-12">
+                                          <input type="text" name="rating" class="form-control" id="rating" placeholder="Give Ratings">
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                          <button class="btn egames-btn w-100" data-dismiss="modal">Close</button>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                          <button class="btn egames-btn w-100" type="submit">Add</button>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>                    
+                    {% endif %}
+
+                <div class="button-css nav mt-2">
+                    {% if get_member_watchlist %}
+                    <a href="{% url 'videosub:profile' %}" data-animation="fadeInUp" data-delay="700ms" data-toggle="tooltip" data-placement="top" title="GotoWatchList" ><span>&nbsp;GotoWatchList</span> <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                    {% else %}
+                    <form action="{% url 'videosub:web_watchlist' i.webseries_id %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button data-animation="fadeInUp" data-delay="700ms"  class="watchlist" type="submit" data-toggle="tooltip" data-placement="top" title="AddWacthList" ><span>&nbsp;MyWatchList+</span> <i class="fa fa-list" aria-hidden="true"></i></button>
+                    </form>
+                    {% endif %}
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="">{{i.webseries_name}}</h1> 
+                {% endfor %}
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="card-deck">
+                            {% for i in get_webseries_season %}
+                            <div class="card">
+                              <!-- <img class="card-img-top" src="{{i.webseries_trailer_thumbnail.url}}" alt="Card image cap"> -->
+                              <div class="card-body">
+                                <h5 class="card-title">{{i.season}}</h5>
+                                <p class="card-text"><i class="fa fa-clock-o"></i>&nbsp;{{i.duration_hours}} Hrs {{i.duration_minutes}} Mins | {{i.release_date}}</p>
+                                <video 
+                                controls
+                                crossorigin
+                                poster="{{i.webseries_trailer_thumbnail.url}}">
+                                    <source src="{{i.webseries_trailer_1080p.url}}" type="video/mp4">
+                                </video>
+                            </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                    </div>
+                </div>
+
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Episode</h5>
+                                <div class="button-css nav mt-3">
+                                  {% for i in get_webseries_season_episode %}
+                                      
+                                    <a href="{% url 'videosub:webseries_season_episode_detail' i.webseries_season_episode_id %}" class="mb-2">{{i.webseries_season_id.season|slice:'0:1'|upper }}{{i.webseries_season_id.season|last}} {{i.episode|slice:'0:1'|upper}}{{i.episode|last}} {{i.episode_name}} </a>    
+                                      
+                                  {% endfor %}
+                                </div>
+                            </div>
+                </div>
+                {% for i in get_webseries_detail %}
+                <div class="mt-3">
+                <h3>Cast</h3>
+                <div class="container mt-3">
+                    <div class="row">
+                        {% for cast in i.cast.all %}
+                        <div class="col-4 col-md-2">
+                            <a target="blank" href="{{cast.more_info}}"><img src="{{cast.cast_profile.url}}" class="image--cover">
+                            <center><p class="cast">{{cast.cast_name}}</p></center></a>
+                            <!-- {% for cast in i.cast.all %}
+                                {% for occupation in cast.occupation.all %}
+                                    <p>{{occupation}}</p>
+                                {% endfor %}
+                            {% endfor %} -->
+                        </div>
+                        {% endfor %}
+                            
+                    </div>
+                </div>
+                
+                <h3>Crew</h3>
+                <div class="container mt-3">
+                    <div class="row">
+                        {% for crew in i.crew.all %}
+                        <div class="col-4 col-md-2">
+                            <a target="blank" href="{{crew.more_info}}"><img src="{{crew.crew_profile.url}}" class="image--cover">
+                            <center><p class="cast">{{crew.crew_name}}</p></center></a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+            <div class="col-xl-4 mt-3">
+            <h2 class="text-center">Recent Reviews</h2>
+            {% for i in get_review_detail|slice:'0:10' %}
+                <div class="single-widget-area video-widget mb-0">
+                  <!-- Single Video Widget -->
+                  <div class="single-video-widget d-flex">
+                      <div class="video-thumbnail">
+                          <img src="{{i.member.profile_pic.url}}" alt="">
+                      </div>
+                      <div class="video-text">
+                          <a class="video-title">{{i.member|upper}}</a>
+                          <p class="mb-0"><span>{{i.comment}}</span></p>
+                          <p class="mb-0"><span>{{i.created_date}}</span></p>
+                      </div>
+                      <div class="video-rating">{{i.rating}}/10</div>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    
+        <div class="raw">
+          <div class="col-12 col-xl-4">
+            <h3 class="">More Reviews</h3>
+            {% for i in get_review_detail|slice:'10:' %}
+                <div class="single-widget-area video-widget mb-0">
+                  <!-- Single Video Widget -->
+                  <div class="single-video-widget d-flex">
+                      <div class="video-thumbnail">
+                          <img src="{{i.member.profile_pic.url}}" alt="">
+                      </div>
+                      <div class="video-text">
+                          <a class="video-title">{{i.member|upper}}</a>
+                          <p class="mb-0"><span>{{i.comment}}</span></p>
+                          <p class="mb-0"><span>{{i.created_date}}</span></p>
+                      </div>
+                      <div class="video-rating">{{i.rating}}/10</div>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags%}
+    <script type="text/javascript">
+        alert('{{ message }}');
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% endblock %}
+
+</div>
+    {% block js %}
+<script src="{% static 'js/jquery.validate.js' %}"></script>
+<script>
+    $().ready(function() {
+        // validate signup form on keyup and submit
+        $("#reviewadd").validate({
+            rules: {
+              review:"required",
+              review: {
+                    required: true,
+                },
+              rating:"required",
+              rating: {
+                  required: true,
+              },
+            },
+            messages: {
+              review: {
+                    required: "Please enter a review",
+                },
+                rating: {
+                    required: "Please enter a rating",
+                },
+            }
+        });
+    });
+    </script>
+{% endblock js %}

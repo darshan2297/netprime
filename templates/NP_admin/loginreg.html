@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login And Regstartion</title>
+    <link rel="stylesheet" href="{% static 'admin/css/loginreg.css' %}" type="text/css">
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+          <form action="" method="POST" class="register-form" enctype="multipart/form-data">
+              {% csrf_token %}
+            <input type="text" placeholder="Username" name="username"/>
+            <input type="password" placeholder="Password" name="password"/>
+            <input type="email" placeholder="Email address" name="email"/>
+            <input type="file" placeholder="Upload Profile" name="adminpic"/>
+            <button type="submit">create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+          </form>
+          <form action="" method="POST" class="login-form">
+              {% csrf_token %}
+            <input type="text" placeholder="username" name="username"/>
+            <input type="password" placeholder="password" name="password"/>
+            <button type="submit">login</button>
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
+          </form>
+        </div>
+      </div>
+</body>
+<!-- jQuery-2.2.4 js -->
+<script src="{% static 'admin/js/jquery/jquery-2.2.4.min.js' %}"></script>
+<!-- Popper js -->
+<script>
+    $('.message a').click(function(){
+        $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+     });
+</script>
+</html>

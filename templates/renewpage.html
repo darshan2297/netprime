@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Subscription</title>
+
+    <!-- Favicon -->
+   <link rel="icon" href="{% static 'img/core-img/np_logo_2.jpg '%}">
+   <!-- css -->
+   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css">
+   <script src="{% static 'js/modernizr.js' %}"></script> <!-- Modernizr -->
+   <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">	
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- header css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css.map' %}">
+	<!-- form css -->
+	<link rel="stylesheet" href="{% static 'css/register.css' %}">
+	<style>
+        .watchlist{
+            display: block;
+            width: 160px;
+            height: 42px;
+            background-color: #f82249;
+            text-align: center;
+            color: #fff;
+            line-height: 42px;
+            font-size: 14px;
+            margin-left: 10px;
+            font-weight: 700;
+            border: 0px;
+            cursor: pointer;
+          }
+            @media only screen and (max-width: 767px) {
+              .watchlist{
+                width: 30px; } }
+            @media only screen and (min-width: 480px) and (max-width: 767px) {
+              .watchlist{
+                width: 50px; } }
+                .watchlist:hover, .watchlist:focus {
+              background-color: #000000;
+              font-weight: 400; 
+              transition: ease 0.5s;
+            }
+              .watchlist i {
+              display: none;
+              line-height: 42px; }
+              @media only screen and (max-width: 767px) {
+                .watchlist i {
+                  display: block; } }
+            @media only screen and (max-width: 767px) {
+              .watchlist span {
+                display: none; } }
+
+        .image--cover {
+          width: 150px;
+          height: 150px;
+          object-fit: cover;
+          object-position: top right;
+          border: 5px #f82249;
+          border-style: ridge;
+        }
+      </style>
+   
+</head>
+
+
+<body>
+	<!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <header class="header-area wow fadeInDown" data-wow-delay="500ms">
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 d-flex align-items-center justify-content-between">
+                        <!-- Logo Area -->
+                        <div class="logo">
+                            <a href="{% url 'videosub:startpage' %}"><img src="{% static '/img/core-img/net-prime-logo1.png' %}" alt="NetPrime" style="height: 50px; width: 170px;"></a>
+                        </div>
+
+                        <!-- Pricing & Login Area -->
+                        <div class="search-login-area d-flex align-items-center">
+                            <!-- Login Area -->
+                            <div class="login-area">
+                                <a href="{% url 'videosub:loginreg' %}"><span>Login</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container mb-5">
+       
+    <form action="" method="POST" id="renewmembership-form" class="renewmembership-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="text-center text-white mb-3">Renew Membership</h1>
+        <center><div class="row">
+           <div class="col-12">
+                <div><a class=""><img src="{{get_member.profile_pic.url}}" class="image--cover mb-3"></a>
+                    <h5 class="text-white">Hi, {{get_member.uname|upper}}</h5>
+                    <h4 class="text-white justify-content-start">Plan: {{memid1.membership_type}}</h4>
+                    <h4 class="text-white">Amount: {{memid1.price}}/- Rs.</h4><br>
+                    
+                    <center><div class="">
+                        <button data-animation="fadeInUp" data-delay="700ms"  class="watchlist" type="submit" data-toggle="tooltip" data-placement="top" title="AddWacthList" ><span>&nbsp;Checkout</span> <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+                    </div></center>
+                
+                </div>
+            </div>
+        </div></center>
+    </form>
+    </div>
+    
+
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags%}
+    <script type="text/javascript">
+        alert('{{ message }}');
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+	
+        <!-- .cd-form -->
+</body> 
+ <!-- jQuery-2.2.4 js -->
+<script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+<!-- Active js -->
+<script src="{% static 'js/active.js' %}"></script>
+<script src="{% static 'js/jquery.validate.js' %}"></script>
+<script src="{% static 'js/register.js' %}"></script>
+	<script>
+        $().ready(function() {
+            // validate signup form on keyup and submit
+            $("#signup-form").validate({
+                rules: {
+                    pimage:"required",
+                    pimage: {
+                      required: true,
+                      accept: "image/*",
+                    },
+                    uname:"required",
+                    uname: {
+                        required: true,
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8,
+                        
+                    },
+                    repeatpassword: {
+                        required: true,
+                        minlength: 8,
+                        
+                        equalTo: "#password"
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    uname: {
+                        required: "Please enter a username",
+                    },
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 8 characters long",
+                        
+                    },
+                    repeatpassword: {
+                        required: "Please provide a Repeat password",
+                        minlength: "Your password must be at least 8 characters long",
+                        equalTo: "Please enter the same password"
+                    },
+                    email: "Please enter a valid email address",
+                }
+            });
+        });
+        </script>
+
+        
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% extends 'NP_admin/admin-master.html' %}
+{% load static %}
+{% block css%}
+<style>
+    .input-file input[type="file"] {
+        visibility: hidden;
+        width: 1px;
+        height: 1px;
+      }
+      .input-file .btn {
+        background-color: #ddd;
+        border-color: #ccc;
+        color: #333;
+      }
+      .input-file .file-selected {
+        font-size: 10px;
+        text-align: center;
+        width: 100%;
+        display: block;
+      }
+</style>
+
+{% endblock css %}
+
+{% block content %}
+
+
+<div id="right-panel " class="right-panel ">
+    <div class="content">
+    <div class="container mt-5 mb-5">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="card mb-5">
+        <div class="card-header">
+            <strong>Upload Movie Content By CSV</strong>
+        </div>
+        <div class="card-body">
+            <center><label for="file" class="sr-only">Select a file</label>
+                    <input type="file" class="p-5" id="movie_csv" name="movie_csv"></center>
+        </div>
+        <hr class="my-4 mt-0">
+        <div class="container mb-3">
+            <button type="submit" class="btn btn-success"> Upload</button>
+            <button type="reset" class="btn btn-danger"> Reset</button>
+            
+        </div>
+        <div class="card-footer">
+            {{download}}<br>
+            <a href="/static/CSV Formate/upload_movie_formate.csv" role="button" class="btn btn-primary" download> Download Movie Content CSV File</a>
+            <a href="/static/CSV Formate/upload_movie_formate_example.csv" role="button" class="btn btn-primary" download> Download Movie Content Example CSV EFile</a>
+        </div>
+    </div>
+   
+</form>
+</div>
+</div>
+</div>
+{% if messages %}
+{% for message in messages %}
+{% if message.tags%}
+<script type="text/javascript">
+    alert('{{ message }}');
+</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+{% endblock content %}
+
+{% block js %}
+
+{% endblock js %}

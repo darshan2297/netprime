@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Favicon -->
+   <link rel="icon" href="{% static 'img/core-img/np_logo_2.jpg' %}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/classy-nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css.map' %}">
+    <link rel="stylesheet" href="{% static 'scss/_fonts.scss' %}">
+    <link rel="stylesheet" href="{% static 'scss/_mixin.scss' %}">
+    <link rel="stylesheet" href="{% static 'scss/_responsive.scss' %}">
+    <link rel="stylesheet" href="{% static 'scss/_theme_color.scss' %}">
+    <link rel="stylesheet" href="{% static 'scss/style.scss' %}">
+    <link rel="stylesheet" href="{% static 'scss/_variables.scss' %}">
+    <link rel="stylesheet" href="{% static 'fonts/classy.eot' %}">
+    <link rel="stylesheet" href="{% static 'fonts/classy.svg' %}">
+    <link rel="stylesheet" href="{% static 'fonts/classy.ttf' %}">
+    <link rel="stylesheet" href="{% static 'fonts/classy.woff' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-webfont.eot' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-webfont.svg' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-webfont.ttf' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-webfont.woff' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-webfont.woff2' %}">
+    <link rel="stylesheet" href="{% static 'fonts/FontAwesome.otf' %}">
+    <link rel="stylesheet" href="{% static 'css/vid-plyr.css' %}"/>
+
+    <style>
+        .card{
+            border-radius: 0px !important;
+            
+        }
+        .card a img{
+            border-radius: 0px !important;
+        }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699580-1"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script> -->
+    <!-- membership form validation -->
+    
+        <!-- end membershipform validation -->
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'UA-132699580-1');
+        </script>
+
+    {% block css %}
+    {% endblock css %}
+</head>
+
+<body>
+    
+<!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area wow fadeInDown" data-wow-delay="500ms">
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 d-flex align-items-center justify-content-between">
+                        <!-- Logo Area -->
+                        <div class="logo">
+                            <a href="{% url 'videosub:home' %}"><img src="{% static '/img/core-img/net-prime-logo1.png' %}" alt="NetPrime" style="height: 50px; width: 170px;"></a>
+                        </div>
+
+                        <!-- Search & Login Area -->
+                        <div class="search-login-area d-flex align-items-center">
+                            <!-- Top Search Area -->
+                            <div class="top-search-area">
+                                <form action="#" method="post">
+                                    
+                                    <input type="search" name="top-search" id="topSearch" placeholder="Search">
+                                    <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
+                            <!-- Login Area -->
+                            <!-- <div class="login-area">
+                                <a href="{% url 'videosub:loginreg' %}"><span>Login / Register</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar Area -->
+        <div class="egames-main-menu" id="sticker">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="egamesNav">
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+                        <div class="top-social-info">
+                            <ul>
+                                <a style="cursor: pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                                <a style="cursor:pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a style="cursor:pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a style="cursor:pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                <a style="cursor:pointer; margin-left: 0px !important; margin-right: 30px !important;" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                            </ul>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul class="">
+                                    <li><a href="{% url 'videosub:home' %}">Home</a></li>
+                                    <li><a style="cursor: pointer;">Movies</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{% url 'videosub:all_movies' %}">All Movies</a></li>
+                                            {% for i in movie_sub_category %}
+                                            {% if i.main_catagory.main_id == 3 %}
+                                                <li><a href="{% url 'videosub:catagory_list' i.sub_id %}">{{i.sub_catagory}}</a></li>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li><a style="cursor: pointer;">Webseries</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{% url 'videosub:all_webseries' %}">All Webseries</a></li>
+                                            {% for i in movie_sub_category %}
+                                            {% if i.main_catagory.main_id == 5 %}
+                                                <li><a href="{% url 'videosub:catagory_list' i.sub_id %}">{{i.sub_catagory}}</a></li>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li><a style="cursor: pointer;">Language</a>
+                                        <ul class="dropdown">
+                                            {% for i in language_all %}
+                                                <li><a href="{% url 'videosub:language_media' i.language_id %}">{{i.language}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li><a href="{% url 'videosub:contact' %}">Contact</a></li>
+                                
+                                    <li class=""><a style="cursor: pointer;">Welcome: {{ request.session.member_id }}</a>
+                                        <ul class="dropdown text-right">   
+                                            <li><a href="{% url 'videosub:profile'%}">My Profile&nbsp;<i class="fa fa-user-circle"></i></a></li>
+                                            <li><a href="{% url 'videosub:editprofile'%}">Edit Profile&nbsp;<i class="fa fa-cogs"></i> </a></li>
+                                            <li><a href="{% url 'videosub:changepassword' %}"> Change Password&nbsp;<i class="fa fa-key"></i></a></li>
+                                            <li><a href="{% url 'videosub:logout' %}"> Logout&nbsp;<i class="fa fa-power-off"></i></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+{% block content %}
+    {% endblock %}
+ <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Copywrite Area -->
+        <div class="copywrite-content">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 col-sm-5">
+                        <!-- Copywrite Text -->
+                        <p class="copywrite-text"><a href="#"></a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Developed by <a href="" target="_blank">NETPRIME</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</p>
+                    </div>
+                    <div class="col-12 col-sm-7">
+                        <!-- Footer Nav -->
+                        <div class="footer-nav">
+                            <ul>
+                                <li><a href="{% url 'videosub:home' %}">Home</a></li>
+                                <li><a href="{% url 'videosub:all_movies'%}">Movies</a></li>
+                                <li><a href="{% url 'videosub:all_webseries'%}">Webseries</a></li>
+                                <li><a href="{% url 'videosub:profile' %}">Profile</a></li>
+                                <li><a href="{% url 'videosub:contact' %}">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ##### Footer Area End ##### -->
+
+    
+</body>
+<!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <!-- All Plugins js -->
+    <script src="{% static 'js/plugins/plugins.js' %}"></script>
+    <!-- Active js -->
+    <script src="{% static 'js/active.js' %}"></script>
+    <!-- Slider js -->
+    <script src="{% static 'js/slider.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.0/bignumber.min.js"></script>
+    <script src="/static/js/vid-plyr.js"></script>
+
+    <!-- custom image js -->
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+                    $('#imagePreview').hide();
+                    $('#imagePreview').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imageUpload").change(function() {
+            readURL(this);
+        });
+    </script>
+
+    {% block js %}
+    {% endblock js %}
+   
+    </html> 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oreder Status</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/confitt.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        div #timer{
+            background-color:#f82249;
+            color:#EFD0CA;
+            font-size:20px;
+            text-align:center;
+        }
+        .alert{
+            border-radius : 0px !important;
+        }
+
+        .watchlist{
+            display: block;
+            width: 160px;
+            height: 42px;
+            background-color: #f82249;
+            text-align: center;
+            color: #fff;
+            line-height: 42px;
+            font-size: 14px;
+            margin-left: 10px;
+            font-weight: 700;
+            border: 0px;
+            cursor: pointer;
+          }
+            @media only screen and (max-width: 767px) {
+              .watchlist{
+                width: 30px; } }
+            @media only screen and (min-width: 480px) and (max-width: 767px) {
+              .watchlist{
+                width: 50px; } }
+                .watchlist:hover, .watchlist:focus {
+              background-color: #000000;
+              font-weight: 400; 
+              transition: ease 0.5s;
+            }
+              .watchlist i {
+              display: none;
+              line-height: 42px; }
+              @media only screen and (max-width: 767px) {
+                .watchlist i {
+                  display: block; } }
+            @media only screen and (max-width: 767px) {
+              .watchlist span {
+                display: none; } }
+    </style>
+</head>
+<body>
+    
+    
+    <section class="player-wrap">
+        <div class="player-container">
+            <div class="container ">
+                <div class="col my-4">
+                    {% if response.RESPCODE == '01' %}
+                    <div class="text-center">
+                        <div class="card text-center">
+                            <div class="card-header text-white mb-0" style="background-color: black;">
+                                Payment Status Regarding Your Order Id: {{response.ORDERID}}
+                            </div>
+                            <div class="card-body text-dark">
+                            <center><img class="modal-icon u-imgResponsive" src="/static/img/core-img/congo.png" alt="Congretulations" /></center>
+                            <h2 class="card-title text-uppercase">Congratulations!!!</h2>
+                            <h4 class="card-text text-capitalize">Your Membership Has been Activate.</h4>
+                            <h5 class="card-text text-capitalize">Enjoy The Latest Movies And Webseries</h5>
+                            </div>
+                            <div class="card-footer text-muted" style="background-color: black;">
+                                <a class="nav-link text-success font-weight-bold" href="{% url 'videosub:loginreg' %}">Login</a>
+                              </div>
+                          </div>
+                    </div>
+                    {% else %}
+                    <div class="text-white">
+                    <h1>Payment Failure</h1>
+                    <h2>Transaction Was Not Successful Because Of {{response.RESPMSG}}</h2>
+                    <h1>Notice:</h1>   
+                    <h2>Your Payment Has Been Fail So You Must Be Once Again Select The Plans and Transaction</h2> 
+                    <h2>Forgive Us For Your Inconvenience</h2>
+                    </div>
+                    <center>
+                        <div class="button-css mt-2">
+                            <a data-animation="fadeInUp" data-delay="700ms" href="{% url 'videosub:renewmembership' get_mem_rec.mid %}" role="button" data-toggle="tooltip" data-placement="top" title="ReCheckout"><span>&nbsp;ReCheckout</span> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                        </div>
+                        </center>
+                    
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+      </section>
+    
+</body>
+
+
+<!-- <script>
+    document.getElementById('timer').innerHTML =
+    00 + ":" + 15;
+    startTimer();
+
+    function startTimer() {
+    var presentTime = document.getElementById('timer').innerHTML;
+    var timeArray = presentTime.split(/[:]+/);
+    var m = timeArray[0];
+    var s = checkSecond((timeArray[1] - 1));
+    if(s==15){m=m-1}
+    //if(m<0){alert('timer completed')}
+    
+    document.getElementById('timer').innerHTML =
+        m + ":" + s;
+    console.log(m)
+    setTimeout(startTimer, 1000);
+    }
+
+    function checkSecond(sec) {
+    if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+    if (sec < 0) {sec = "15"};
+    return sec;
+    }
+</script> -->
+<script src="/static/js/confetti.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</html>

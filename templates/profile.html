@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+<!-- titile -->
+{% block title %} Profile {% endblock %}
+
+{% block css %}
+<style>
+  .overlay-div{
+      height:100%;
+      width: 100%;
+      position:absolute;
+      background-color:#000;
+      opacity:.6;
+  }
+  .card{
+    border-radius: 0px !important;
+  }
+  .card:hover{
+    position: relative;
+    border-radius: 0px !important;
+    border: 3px;
+    border-style: solid;
+    border-color: #f82249;
+    transition: ease-in-out 0.1s;
+  }
+  a.edit-profile-sidebar,button.edit-profile-sidebar{
+    color: #ffffff;
+    background: #f82249;
+    border-color: #f82249;
+    text-align: center;
+    z-index: 8;
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 1;
+    padding: 5px 8px;
+    border-bottom-left-radius: 5px;
+    font-size: 13px;
+    color: #fff;
+    box-shadow: 0 2px 14px rgba(0,0,0,.25)
+  }
+
+  button.edit-profile-sidebar{
+    border: 0px;
+    cursor: pointer;
+  }
+  
+</style>
+{% endblock css %}
+
+{% block content %}
+<section class="bg-pattern2 mt-3">
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-3 mb-5">
+                <div class="card">
+                  <img src="{{ user_data.profile_pic.url }}" class="card-img-top" alt="User Profile">
+                  <a href="{% url 'videosub:editprofile'%}" class="edit-profile-sidebar">Edit</a>
+                  <div class="card-body">
+                    <h5 class="card-title text-center">{{user_data.first_name}}&nbsp;{{user_data.last_name}} </h5>
+                      <h6 class="card-title text-center">{{user_data.country}} </h6>
+                      <div class="top-social-info text-center">
+                        <a class="mr-2" href="{{user_data.facebook}}" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a class="mr-2" href="{{user_data.twitter}}" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a class="mr-2" href="{{user_data.linkedin}}" data-toggle="tooltip" data-placement="top" title="Linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a class="mr-2" href="{{user_data.instagram}}" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                      </div>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">                      
+                      <p class="card-title text-dark mt-0"><b>User Stats</b></p>
+                      <div class="row text-center">
+                        <div class="col">
+                          <h2>{{count_watchlist}}</h2>
+                          <p>WatchList</p>
+                        </div>
+                        <div class="col">
+                        <h2>{{count_review}}</h2>
+                          <p>Reviews</p>
+                        </div>
+                      </div></li>
+                    <li class="list-group-item">
+                      <p class="card-title text-dark mt-0"><b>Member Since</b></p>
+                      <p>{{user_data.member_date|date:"M d, Y" }}</p></li>
+                    <li class="list-group-item">
+                      <p class="card-title text-dark mt-0"><b>Delete Account</b></p>
+                      <div class="button-css">
+                        <center><a href="#" role="button" data-toggle="modal" data-target="#exampleModal"><span>&nbsp;Delete Account</span> <i class="fa fa-trash" aria-hidden="true"></i></a></center>
+                    </div></li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="col-lg-9" >
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item mr-auto">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">WatchList</a>
+                  </li>
+                  <li class="nav-item ml-auto">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Reviews</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                      {% for i in get_movie_watchlist %}
+                      <div class="col-12 col-md-6">
+                        <div class="card-deck">
+                          
+                            <div class="card mt-3">
+                            <img class="card-img" src="{{i.movie.movie_bgimage.url}}" alt="NETPRIME">
+                            <div class="overlay-div"></div>
+                            <div class="card-img-overlay justify-content-end">
+                              <form action="{% url 'videosub:delete_watchlist' i.movies_watchlist_id %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <button type="submit" class="edit-profile-sidebar"><i class="fa fa-trash"></i></button>
+                              </form>
+                              <a href="{% url 'videosub:movies-detail' i.movie.movie_id %}"><h5 class="card-text text-white mb-0">{{i.movie.movie_name|upper}}</h5>
+                              <p class="card-text text-white mb-0">{{i.movie.type_catagory1}}</p></a>
+                            </div>
+                            </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+
+                      {% for i in get_webseries_watchlist %}
+                      <div class="col-12 col-md-6">
+                        <div class="card-deck">
+                            <div class="card mt-3">
+                            <img class="card-img" src="{{i.webseries.webseries_bgimage.url}}" alt="NETPRIME">
+                            <div class="overlay-div"></div>
+                            <div class="card-img-overlay justify-content-end">
+                              <form action="{% url 'videosub:delete_web_watchlist' i.webseries_watchlist_id %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <button type="submit" class="edit-profile-sidebar"><i class="fa fa-trash"></i></button>
+                              </form>
+                              <a href="{% url 'videosub:webseries-detail' i.webseries.webseries_id %}"><h5 class="card-text text-white mb-0">{{i.webseries.webseries_name|upper}}</h5>
+                              <p class="card-text text-white mb-0">{{i.webseries.type_catagory}}</p></a>
+                            </div>
+                            </div>
+                        </div>
+                      </div>
+                    {% endfor %} 
+                  </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row">
+                      {% for i in get_movie_review %}
+                      <div class="col-12">
+                          <div class="card border-left-0 border-right-0 border-top-0">
+                            <div class="card-body">
+                              <a href="{% url 'videosub:movies-detail' i.movie.movie_id %}" class="edit-profile-sidebar">Edit</a>
+                              <div class="row">
+                                <div class="col-7">
+                                  <a href="{% url 'videosub:movies-detail' i.movie.movie_id %}"><h5 class="card-title ">{{i.movie.movie_name|upper}}</h5></a>
+                                    <small class="text-muted">Reviewed on: {{i.created_date}}</small>
+                                </div>
+                                <div class="col-5">
+                                    <p class="card-title"><i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</p>
+                                </div>
+                            </div>
+                              <p class="card-text">{{i.comment}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      
+                      {% endfor %}
+
+                      {% for i in get_webseries_review %}
+                      <div class="col-12">
+                        <div class="card-deck">
+                          <div class="card border-left-0 border-right-0 border-top-0">
+                            <div class="card-body">
+                              <a href="{% url 'videosub:webseries-detail' i.webseries.webseries_id %}" class="edit-profile-sidebar">Edit</a>
+                              <div class="row">
+                                <div class="col-7">
+                                  <a href="{% url 'videosub:webseries-detail' i.webseries.webseries_id %}"><h5 class="card-title ">{{i.webseries.webseries_name|upper}}</h5></a>
+                                    <small class="text-muted">Reviewed on: {{i.created_date}}</small>
+                                </div>
+                                <div class="col-5">
+                                    <p class="card-title"><i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</p>
+                                </div>
+                            </div>
+                              <p class="card-text">{{i.comment}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+<form action="delete_account" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are You Sure Delete The Account?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="Submit" class="btn btn-primary">Delete Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+    {% endblock %}

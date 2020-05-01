@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+<!-- titile -->
+{% block title %} Enjoy-Webseries {% endblock %}
+
+    {% block content %}
+    <div class="container">
+        {% for i in get_webseries_season_episode %}
+        <h1>{{i.webseries_season_id.season|slice:'0:1'|upper }}{{i.webseries_season_id.season|last}} {{i.episode|slice:'0:1'|upper}}{{i.episode|last}}  {{i.episode_name}}</h1> 
+        <p> <i class="fa fa-clock-o"></i>&nbsp;{{i.duration_hours}} Hrs {{i.duration_minutes}} Mins | {{i.release_date}}</p>
+    </div>
+    <div class="container mt-5 mb-5"> 
+    <main>
+        <div id="container">
+            <video
+                controls
+                crossorigin
+                playsinline
+                poster="{{i.webseries_thumbnail.url}}"
+                id="player"
+            >
+                <!-- Video files -->
+                <!-- <source
+                    src="{{i.webseries_576p.url}}"
+                    type="video/mp4"
+                    size="576"
+                /> -->
+                <source
+                    src="{{i.webseries_720p.url}}"
+                    type="video/mp4"
+                    size="720"
+                />
+                <!-- <source
+                    src="{{i.webseries_1080p.url}}"
+                    type="video/mp4"
+                    size="1080"
+                /> -->
+
+                <!-- Caption files -->
+                <!-- <track
+                    kind="captions"
+                    label="English"
+                    srclang="en"
+                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
+                    default
+                />
+                <track
+                    kind="captions"
+                    label="Français"
+                    srclang="fr"
+                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt"
+                /> -->
+            </video>
+        </div>
+    </main>
+    <div class="button-css">
+        <a href="{{ i.webseries_720p.url }}" download><span>&nbsp;Download Webseries Episode</span> <i class="fa fa-download" aria-hidden="true"></i></a>
+    </div>
+    {% endfor %}
+</div>  
+    {% endblock %}

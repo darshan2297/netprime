@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+<!-- titile -->
+{% block title %} Category List {% endblock %}
+
+
+{% block css %}
+
+<style>
+  div.menu{
+  
+    margin: 5% 10%;
+    background: transparent;
+ }
+ 
+ .menu a,#showall,.active{
+    display:inline-block;
+    margin:0 1%;
+    padding:2%;
+    -webkit-box-shadow: 0px 3px 11px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 3px 11px 2px rgba(0,0,0,0.2);
+    box-shadow: 0px 3px 11px 2px rgba(0,0,0,0.2);
+ }
+.showSingle{
+  background-color: #000000;
+  color: #ffffff;
+}
+.showSingle:hover{
+  background-color: #f82249;
+  color: #000000;
+  transition: 0.5s ease-in-out;
+}
+ .active{
+   background-color: #f82249;
+   color: #000000 !important;
+ }
+
+ 
+ .cnt{
+    margin: 5% 10%;
+    background: transparent;
+ }
+</style>
+
+{% endblock css %}
+
+{% block content %}
+
+<div class="bg-pattern2">
+  {% for j in get_sub_cat %}
+  <h1 class="text-center pt-3 ">{{j.sub_catagory}}</h1>
+  {% endfor %}
+
+   <div class="container mb-5">
+    <center><div class="menu">
+      
+    {% for i in get_type_data %}
+      
+    <a href="{% url 'videosub:movies_catagory_movie' i.type_id %}" class="showSingle">{{ i.type_catagory }}</a>
+    {% endfor %}
+    </div></center>
+
+
+    <center><a  class="active mb-5" id="showall">All</a></center>
+
+
+    <div class="row row-cols-1 row-cols-md-3">
+    {% if get_main_cat  ==  3 %}
+      {% for i in get_movie_list %}
+      <div class="col-12 col-md-3 mb-4">
+      <div class="card-deck">
+          <div class="card">
+            <a href="{% url 'videosub:movies-detail' i.movie_id %}"><img src="{{i.movie_bgimage.url}}" class="card-img-top" alt="..."></a>
+        <div class="card-body p-0 pt-2 border-0" style="background-color: transparent !important;">
+          <a href="{% url 'videosub:movies-detail' i.movie_id %}" class="nav-link"><h6 class="mb-0">{{ i.movie_name |upper }}</h6></a>
+          <p href="" class="nav-link mb-0 ">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</p>
+              <div class="nav">
+                  <a href="{% url 'videosub:catagory_list' i.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.sub_catagory|upper }}</a>    
+                  <a href="{% url 'videosub:movies_catagory_movie' i.type_catagory1.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.type_catagory1|upper }}</a>
+              </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  {% endfor %}
+      {% else %}
+      {% if get_main_cat  ==  5 %}
+  {% for j in get_webseries_list %}
+<div class="col-12 col-md-3 mb-4">
+  <div class="card-deck">
+  
+    <div class="card">
+      <a href="{% url 'videosub:webseries-detail' j.webseries_id %}"><img src="{{j.webseries_bgimage.url}}" class="card-img-top" alt="..."> </a>
+  <div class="card-body p-0 pt-2" style="background-color: transparent !important;">
+    <a href="{% url 'videosub:webseries-detail' j.webseries_id %}" class="nav-link"><h6 class="mb-0">{{ j.webseries_name |upper }}</h6></a>
+    <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{j.rating}}/10</p>   
+        <div class="nav">
+            <a href="{% url 'videosub:catagory_list' j.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{j.sub_catagory|upper }}</a>    
+            <a href="{% url 'videosub:movies_catagory_movie' j.type_catagory.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{j.type_catagory|upper }}</a>
+        </div>
+  </div>
+</div>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+{% endif %}
+  </div>
+  </div>
+</div>
+    
+    {% endblock %}
+    
+    
+    {% block js %}
+
+    <script>
+      jQuery(function(){
+        jQuery('#showall').click(function(){
+              jQuery('.targetDiv').show();
+       });
+       jQuery('.showSingle').click(function(){
+             jQuery('.targetDiv').hide();
+             jQuery('#div'+$(this).attr('target')).show();
+       });
+});
+    </script>
+    {% endblock js %}

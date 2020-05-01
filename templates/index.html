@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+
+
+<!-- titile -->
+{% block title %} Home {% endblock %}
+
+
+{% block css %}
+
+<style>
+    .vl {
+      border-left: 5px solid #f82249;
+      height: 500px;
+      position: absolute;
+      left: 50%;
+      margin-left: -3px;
+      top: 0;
+    }
+    .nicescroll-cursors{
+        background-color: #f82249;
+    }
+</style>
+
+{% endblock css %}
+
+    {% block content %}
+    <!-- ##### Hero Area Start ##### -->
+    
+    <div class="hero-area">
+        <!-- Hero Post Slides -->
+        <div class="hero-post-slides owl-carousel">
+            <!-- Single Slide -->
+            {% for i in movie_data|slice:"0:3" %}
+            <div class="single-slide bg-img bg-overlay" style="background-image: url({{i.movie_bgimage.url}})">
+                <!-- Blog Content -->
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12 col-lg-9">
+                            <div class="blog-content" data-animation="fadeInUp" data-delay="100ms">
+                                <h2 class="text-white" data-animation="fadeInUp" data-delay="400ms">{{i.movie_name|upper}}</h2>
+                                <p data-animation="fadeInUp" data-delay="700ms">{{i.description|slice:"0:300"}}...</p>
+                                <p data-animation="fadeInUp" data-delay="700ms" style="color: #f82249;">{{i.duration_hours}} Hrs {{i.duration_minutes}} Mins | {{i.release_date}} | <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10 | {{i.language}} | {{ i.type_catagory1 }}</p>
+                                <div class="button-css nav mt-3">
+                                    <a data-animation="fadeInUp" data-delay="700ms" href="{% url 'videosub:movies-detail' i.movie_id %}" role="button"><span>&nbsp;Watch Trailer Now</span> <i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                                    <!-- <a data-animation="fadeInUp" data-delay="700ms" href="" role="button"><span>&nbsp;Add to Mylist+</span> <i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
+                                </div>
+                            </div>                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% for i in webseries_data|slice:"0:2" %}
+            <div class="single-slide bg-img bg-overlay" style="background-image: url({{i.webseries_bgimage.url}})">
+                <!-- Blog Content -->
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12 col-lg-9">
+                            <div class="blog-content" data-animation="fadeInUp" data-delay="100ms">
+                                <h2 class="text-white" data-animation="fadeInUp" data-delay="400ms">{{i.webseries_name|upper}}</h2>
+                                <p data-animation="fadeInUp" data-delay="700ms">{{i.description|slice:"0:300"}}...</p>
+                                <p data-animation="fadeInUp" data-delay="700ms" style="color: #f82249;">{{i.duration_hours}} Hrs {{i.duration_minutes}} Mins | {{i.release_date}} | <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10 | {{i.language}} | {{ i.type_catagory }}</p>
+                                <div class="button-css nav mt-3">
+                                    <a data-animation="fadeInUp" data-delay="700ms" href="{% url 'videosub:webseries-detail' i.webseries_id %}" role="button"><span>&nbsp;Watch Webseries Now</span> <i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                                    <!-- <a data-animation="fadeInUp" data-delay="700ms" href="" role="button"><span>&nbsp;Add to Mylist+</span> <i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
+                                </div>
+                            </div>                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Monthly Picks Area Start ##### -->
+    <section class="monthly-picks-area section-padding-100 bg-pattern">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="left-right-pattern"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-tabs wow fadeInUp" data-wow-delay="300ms" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="latest_movies-tab" data-toggle="tab" href="#latest_movies" role="tab" aria-controls="latest_movies" aria-selected="true">Latest Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="latest_webseries-tab" data-toggle="tab" href="#latest_webseries" role="tab" aria-controls="latest_webseries" aria-selected="true">Latest Webseries</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content wow fadeInUp" data-wow-delay="500ms" id="myTabContent">
+            <div class="tab-pane fade show active" id="latest_movies" role="tabpanel" aria-labelledby="latest_movies-tab">
+                <!-- Popular Games Slideshow -->
+                <div class="popular-games-slideshow owl-carousel">
+
+                    <!-- Single Games -->
+                    {% for i in latest_movie_order %}
+                    <div class="single-games-slide">
+                        <a href="{% url 'videosub:movies-detail' i.movie_id %}"><img src="{{ i.movie_poster.url }}" alt="movie_poster"></a>
+                        <div class="slide-text">
+                            <a href="{% url 'videosub:movies-detail' i.movie_id %}" class="game-title">{{i.movie_name|upper}}</a>
+                            <div class="meta-data">
+                                <a>User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</a>
+                                <a href="{% url 'videosub:catagory_list' i.sub_catagory.sub_id %}">{{i.sub_catagory}}</a>
+                                <a href="{% url 'videosub:movies_catagory_movie' i.type_catagory1.type_id %}">{{i.type_catagory1}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="latest_webseries" role="tabpanel" aria-labelledby="latest_webseries-tab">
+                <!-- Popular Games Slideshow -->
+                <div class="popular-games-slideshow owl-carousel">
+
+                    <!-- Single Games -->
+                    {% for i in latest_webseries_order %}
+                    <div class="single-games-slide">
+                        <a href="{% url 'videosub:webseries-detail' i.webseries_id %}"><img src="{{i.webseries_poster.url}}" class="card-img-top" alt="..."> </a>
+                        <div class="slide-text">
+                            <a href="{% url 'videosub:webseries-detail' i.webseries_id %}" class="game-title">{{i.webseries_name|upper}}</a>
+                            <div class="meta-data">
+                                <a>User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</a>
+                                <a href="{% url 'videosub:catagory_list' i.sub_catagory.sub_id %}">{{i.sub_catagory}}</a>
+                                <a href="{% url 'videosub:movies_catagory_movie' i.type_catagory.type_id %}">{{i.type_catagory}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+    </section>
+    <!-- ##### Monthly Picks Area End ##### -->
+
+    <!-- #### Movie Category Area #### -->
+ 
+    <div class="egames-video-area section-padding-100 bg-pattern bg-fixed" style="background-color: white;">
+        <div class="container">
+            <div class="row">
+                {% for i in m_cate %}
+                {% if i.main_catagory != "None" %}
+                <div class="col-6">
+                        
+                </div>
+                {% endif %}
+                {% endfor%}
+            </div>
+                <div class="row">  
+                <div class="col-12 col-md-6">
+                    <h1 class="section-title mb-70 wow fadeInUp text-dark text-center" data-wow-delay="100ms">Movies</h1>
+                    <!-- Title -->
+                    <div class="row">
+                    {% for i in s_cate %}
+                    {% if i.main_catagory.main_id == 3 %}    
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="card-deck">
+                        <div class="card border-0">
+                                <a href="{% url 'videosub:catagory_list' i.sub_id %}" class="nav-link"><img src="{{i.sub_cat_image.url}}" class="card-img-top" alt="category images"></a>
+                        </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                    </div>
+                    
+
+                    <div class="col-12 col-md-6">
+                        <h1 class="section-title mb-70 wow fadeInUp text-dark text-center" data-wow-delay="100ms">Webseries</h1>
+                        <!-- Title -->
+                        <div class="row">
+                        {% for i in s_cate %}
+                        {% if i.main_catagory.main_id == 5 %}
+                        <div class="col-12 col-md-6 mb-3">
+                        <div class="card-deck">
+                            <div class="card border-0">
+                                    <a href="{% url 'videosub:catagory_list' i.sub_id %}" class="nav-link"><img src="{{i.sub_cat_image.url}}" class="card-img-top" alt="category images"></a>
+                            </div>
+                          </div>  
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        </div>
+                        </div>
+                </div>
+        </div>
+    </div> 
+    <section class="monthly-picks-area section-padding-100-0 bg-img bg-pattern bg-fixed" style="background-image: url(../../img/bg-img/5.jpg);">
+        <div class="container mb-5">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="movie-tab" data-toggle="tab" href="#movie" role="tab" aria-controls="movie" aria-selected="true">New Arrivals Movies</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="webseries-tab" data-toggle="tab" href="#webseries" role="tab" aria-controls="webseries" aria-selected="false">New Arrivals Webseries</a>
+                </li>
+            </ul>
+        <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="movie" role="tabpanel" aria-labelledby="movie-tab">
+            <div class="row row-cols-1 row-cols-md-3">
+                {% for i in movie_data %}
+                <div class="col-12 col-md-3 mb-4">
+                <div class="card-deck">
+                    <div class="card">
+                    <a href="{% url 'videosub:movies-detail' i.movie_id %}" ><img src="{{i.movie_bgimage.url}}" class="card-img-top" alt="..."> </a>
+                  <div class="card-body p-0 pt-2 border-0" style="background-color: transparent !important;">
+                    <a href="{% url 'videosub:movies-detail' i.movie_id %}" class="nav-link"><h6 class="mb-0">{{ i.movie_name |upper }}</h6></a>
+                    <p href="" class="nav-link mb-0 ">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</p>
+                        <div class="nav">
+                            <a href="{% url 'videosub:catagory_list' i.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.sub_catagory|upper }}</a>    
+                            <a href="{% url 'videosub:movies_catagory_movie' i.type_catagory1.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.type_catagory1|upper }}</a>
+                        </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            {% endfor %}
+            </div>
+            </div>
+
+
+
+            <div class="tab-pane fade" id="webseries" role="tabpanel" aria-labelledby="webseries-tab">
+                <div class="row row-cols-1 row-cols-md-3">
+                    {% for j in webseries_data %}
+                    <div class="col-12 col-md-3 mb-4">
+                      <div class="card-deck">
+                      
+                        <div class="card">
+                        <a href="{% url 'videosub:webseries-detail' j.webseries_id %}" ><img src="{{j.webseries_bgimage.url}}" class="card-img-top" alt="..."></a>
+                      <div class="card-body p-0 pt-2" style="background-color: transparent !important;">
+                        <a href="{% url 'videosub:webseries-detail' j.webseries_id %}" class="nav-link"><h6 class="mb-0">{{ j.webseries_name |upper }}</h6></a>
+                        <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{j.rating}}/10</p>   
+                            <div class="nav">
+                                <a href="{% url 'videosub:catagory_list' j.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{j.sub_catagory|upper }}</a>    
+                                <a href="{% url 'videosub:movies_catagory_movie' j.type_catagory.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{j.type_catagory|upper }}</a>
+                            </div>
+                      </div>
+                    </div>
+                    </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags%}
+    <script type="text/javascript">
+        alert('{{ message }}');
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    
+{% endblock %}

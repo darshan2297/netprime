@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Login</title>
+
+    <!-- Favicon -->
+   <link rel="icon" href="{% static 'img/core-img/np_logo_2.jpg' %}">
+   <!-- css -->
+   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css">
+   <link rel="stylesheet" href="{% static 'css/login.css' %}">
+   <link rel="stylesheet" href="{% static 'css/util.css' %}">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- header css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css.map' %}">
+
+</head>
+
+
+<body>
+	<!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <header class="header-area wow fadeInDown" data-wow-delay="500ms">
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 d-flex align-items-center justify-content-between">
+                        <!-- Logo Area -->
+                        <div class="logo">
+                            <a href="{% url 'videosub:startpage' %}"><img src="{% static '/img/core-img/net-prime-logo1.png' %}" alt="NetPrime" style="height: 50px; width: 170px;"></a>
+                        </div>
+
+                        <!-- Pricing & Login Area -->
+                        <div class="search-login-area d-flex align-items-center">
+                            <!-- Pricing Area -->
+                            <div class="login-area">
+                                <a href="{% url 'videosub:membership' %}"><span>&nbsp;Pricing Plans</span> <i class="fa fa-credit-card" aria-hidden="true"></i></a>
+                            </div>
+                            <!-- Login Area -->
+                            <div class="login-area">
+                                <a href="{% url 'videosub:loginreg' %}"><span>Login</span> <i class="fa fa-lock" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<div class="header-overlay"></div>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65">
+            <form action="login" class="login100-form validate-form" method="POST" id="login_form">
+                {% csrf_token %}
+                <span class="login100-form-title p-b-49">
+                    Login
+                </span>
+
+                <div class="wrap-input100 m-b-23">
+                    <span class="label-input100">Username</span>
+                    <input class="input100" type="text" name="uname" placeholder="Type your username" autocomplete="off">
+                    <span class="focus-input100" data-symbol=""></span>
+                </div>
+
+                <div class="wrap-input100 ">
+                    <span class="label-input100">Password</span>
+                    <input class="input100" type="password" name="pwd" placeholder="Type your password">
+                    <span class="focus-input100" data-symbol=""></span>
+                </div>
+                
+                <div class="text-right p-t-8 p-b-31">
+                    <a href="{% url 'videosub:passwordreset_1ststep' %}">
+                        Forgot password?
+                    </a>
+                </div>
+                
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                </div>
+                <div class="txt1 text-center p-t-54 p-b-20">
+                    <span>
+                        <a href="{% url 'videosub:membership' %}">Create account?</a>
+                    </span>
+                </div>
+
+                <!-- <div class="txt1 text-center p-t-54 p-b-20">
+                    <span>
+                        Or Sign Up Using 
+                    </span>
+                </div> -->
+               
+                    <!-- <div class="flex-c-m">
+                        <a href="#" class="login100-social-item bg1">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="#" class="login100-social-item bg2">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+
+                        <a href="#" class="login100-social-item bg3">
+                            <i class="fa fa-google"></i>
+                        </a>
+                    </div> -->
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% if messages %}
+{% for message in messages %}
+{% if message.tags%}
+<script type="text/javascript">
+    alert('{{ message }}');
+</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+</body> 
+<!-- jQuery-2.2.4 js -->
+<script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+<!-- Active js -->
+<script src="{% static 'js/active.js' %}"></script>
+<!-- Login js -->
+<script src="{% static 'js/login.js' %}"></script>
+<script src="{% static 'js/jquery.validate.js' %}"></script>
+<script>
+    $().ready(function() {
+        // validate signup form on keyup and submit
+        $("#login_form").validate({
+            rules: {
+                uname:"required",
+                uname: {
+                    required: true,
+                },
+                pwd: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 12
+                },
+            },
+            messages: {
+                uname: {
+                    required: "Please enter a username",
+                },
+                pwd: {
+                    required: "Please provide a password",
+                },
+            }
+        });
+    });
+    </script>
+
+</html>
+    
