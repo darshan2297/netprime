@@ -814,6 +814,30 @@ class contact(View):
             i = True
             
             return render(request,'contact.html',{'i':i}) 
+        
+class request_movie(View):
+    def get(self,request,*args, **kwargs):
+        return render(request,'request_movie.html')
+    
+    def post(self,request,*args, **kwargs):
+        i  = False
+        if request.method == 'POST':
+            name = request.POST['name']
+            email = request.POST['email']
+            sub = request.POST['mrequest']
+            msg = request.POST['message']
+            
+            msg_html = render_to_string('email_mrequest.html', {'name': name,'name': name,'email': email,'sub': sub,'msg': msg})
+
+            send_mail(sub,msg,
+                settings.EMAIL_HOST_USER,
+                ['darshanvwla22@gmail.com'],
+                html_message=msg_html,
+            )
+            
+            i = True
+            
+            return render(request,'request_movie.html',{'i':i}) 
 
 class PasswordChange(View):
     def get(self,request,*args, **kwargs):

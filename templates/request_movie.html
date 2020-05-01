@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+{% load static %}
+<!-- titile -->
+{% block title %} Movie Request {% endblock %}
+
+{% block css %}
+<style>
+  
+</style>
+{% endblock %}
+
+    {% block content %}
+    <div class="mt-5">
+        <h1 class="text-center">Movies and Webseries Request</h1>
+    </div>
+    <!-- ##### Contact Area Start ##### -->
+    <section class="contact-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <!-- Contact Form Area -->
+                <div class="col-12">
+                    <!-- Contact Form -->
+                    {% if i == True %}
+                    <!-- <h4 class="mb-30">Email Send</h4> -->
+                    <div class="mb-5 text-center">
+                        <h1> Thank You For Send Your Movie Request&nbsp;<i class="fa fa-video-camera" aria-hidden="true"></i></h1>
+                        <h2> Your Request Has Been Send&nbsp;<i class="fa fa-paper-plane"></i></h2>
+                        <p> Very Short Time In Our Team Working On Your Request&nbsp;</p>
+                    </div>
+                    {% else %}
+                    <h4 class="mb-70">Send Your Request</h4>
+                    <div class="contact-form-area mb-100">
+                        <form action="" method="post" id="contact">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Name*">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <input type="email" class="form-control"  name="email" id="email" placeholder="Email*">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control" name="mrequest" id="mrequest" placeholder="Write Movie Request">
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Movie Name"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn egames-btn w-100" type="submit">Send Request</button>
+                                </div>
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Contact Area End ##### -->
+
+    {% endblock %}
+
+{% block js %}
+<script src="{% static 'js/jquery.validate.js' %}"></script>
+<script>
+    $().ready(function() {
+        // validate signup form on keyup and submit
+        $("#contact").validate({
+            rules: {
+                name:"required",
+                name: {
+                    required: true,
+                },
+                email:"required",
+                email: {
+                    required: true,
+                },
+                subject:"required",
+                subject: {
+                    required: true,
+                },
+                message:"required",
+                message: {
+                    required: true,
+                },
+            },
+            messages: {
+                name: {
+                    required: "Please enter a your name",
+                },
+                email: {
+                    required: "Please provide a email",
+                },
+                subject: {
+                    required: "Please enter subject",
+                },
+                message: {
+                    required: "Please enter message",
+                },
+            }
+        });
+    });
+    </script>
+{% endblock js %}

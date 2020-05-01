@@ -11,7 +11,8 @@ from videosub.views import (
     contact,register,logout,handlerequest,profile,editprofile,delete_account,all_movies,webseries_detail,
     webseries_season_episode_detail,watchlist,edit_review,delete_watchlist,edit_webseries_review,
     web_watchlist,delete_web_watchlist,all_webseries,language_media,PasswordChange,renewmembership,
-    renewpage,renewhandlerequest,passwordreset_1ststep,passwordreset_2ndstep,passwordreset_3rdstep
+    renewpage,renewhandlerequest,passwordreset_1ststep,passwordreset_2ndstep,passwordreset_3rdstep,
+    request_movie
 )
 
 from . import views
@@ -48,6 +49,7 @@ urlpatterns = [
     path('all-movies',all_movies.as_view(),name='all_movies'),
     path('all_webseries',all_webseries.as_view(),name='all_webseries'),
     path('contact',contact.as_view(),name='contact'),
+    path('request',request_movie.as_view(),name='request_movie'),
     #Password Change
     path('changepassword',PasswordChange.as_view(),name='changepassword'),    
     #Password Reset
