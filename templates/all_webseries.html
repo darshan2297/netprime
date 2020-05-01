@@ -34,6 +34,31 @@
     </div>
     {% endfor %}
     </div>
+    {% if get_all_webseries.has_other_pages %}
+    <nav aria-label="Page navigation example">
+    <ul class="pagination border" style="border-radius: 0px !important;">
+        {% if get_all_webseries.has_previous %}
+        <li class="page-item p-2 border-right"><a class="page-link m-0" href="?page={{ get_all_webseries.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li class="disabled p-2 border-right"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in get_all_webseries.paginator.page_range %}
+        {% if get_all_webseries.number == i %}
+            <li class="page-item active p-2 border-right"><span class="box" style="color: #f82249;">{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+            <li class="page-item p-2 border-right"><a class="page-link m-0" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if get_all_webseries.has_next %}
+        <li class="page-item p-2"><a class="page-link m-0" href="?page={{ get_all_webseries.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="disabled p-2 "><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+    </nav>
+  {% endif %
+
+
     </div>
     </div>
     

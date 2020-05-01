@@ -28,6 +28,7 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template.loader import render_to_string
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 MERCHANT_KEY = settings.MERCHANT_KEY
@@ -56,7 +57,7 @@ class renewmembership(View):
             return redirect('videosub:home')
         membership1 = membership.objects.all()
         return render(request,'membership.html',{'membership1':membership1,'member_id':member_id})
-    
+
     def post(self,request,*args, **kwargs):
        pass
 
@@ -435,19 +436,33 @@ class homeview(TemplateView):
             if user_data.remaining_days !=0 and get_sub1.active:
                 m_cate = main_catagory.objects.all()
                 s_cate = sub_catagory.objects.all()
-                movie_data = movie_content.objects.all().order_by('-release_date')
-                webseries_data = webseries_content.objects.all().order_by('-release_date')
                 sdate  = date.today()
                 edate = date.today() + timedelta(days=30)
-                latest_movie_order = movie_content.objects.all().order_by('-release_date')
-                latest_webseries_order = webseries_content.objects.all().order_by('-release_date')
+                latest_movie_list = movie_content.objects.all().order_by('-release_date')
+                latest_webseries_list = webseries_content.objects.all().order_by('-release_date')
+                page = request.GET.get('page', 1)
+                
+                paginator = Paginator(latest_movie_list,16)
+                try:
+                    latest_movie_order = paginator.page(page)
+                except PageNotAnInteger:
+                    latest_movie_order = paginator.page(1)
+                except EmptyPage:
+                    latest_movie_order = paginator.page(paginator.num_pages)
+                
+                paginator1 = Paginator(latest_webseries_list,16)
+                try:
+                    latest_webseries_order = paginator1.page(page)
+                except PageNotAnInteger:
+                    latest_webseries_order = paginator1.page(1)
+                except EmptyPage:
+                    latest_webseries_order = paginator1.page(paginator1.num_pages)
+                
                 get_movie_review = movie_review.objects.filter(member = user_data)
                 get_webseries_review = webseries_review.objects.filter(member = user_data)
                 return render(request,'index.html',{'m_cate':m_cate,'s_cate':s_cate,
-                                                    'movie_data':movie_data,
                                                     'latest_movie_order':latest_movie_order,
                                                     'latest_webseries_order':latest_webseries_order,
-                                                    'webseries_data':webseries_data,
                                                     'get_movie_review':get_movie_review,
                                                     'get_webseries_review':get_webseries_review
                                                     })
@@ -483,9 +498,7 @@ class profile(View):
                                               'count_watchlist':count_watchlist,'count_review':count_review,
                                               'get_webseries_review':get_webseries_review
                                               })
-    
-    def post(self,request,*args, **kwargs):
-        pass
+
            
 class editprofile(View):
     def get(self,request,*args, **kwargs):
@@ -544,8 +557,27 @@ class catagory_list(View):
         get_sub_cat = sub_catagory.objects.filter(sub_id = sub_id)
         get_main_cat = get_sub_cat.values_list('main_catagory',flat=True).first()
         get_type_data = type_catagory.objects.filter(sub_catagory = sub_id)
-        get_movie_list = movie_content.objects.filter(sub_catagory=sub_id).order_by('-release_date')
-        get_webseries_list = webseries_content.objects.filter(sub_catagory=sub_id).order_by('-release_date')
+        get_movie = movie_content.objects.filter(sub_catagory=sub_id).order_by('-release_date')
+        page = request.GET.get('page', 1)
+                
+        paginator = Paginator(get_movie,12)
+        try:
+            get_movie_list = paginator.page(page)
+        except PageNotAnInteger:
+            get_movie_list = paginator.page(1)
+        except EmptyPage:
+            get_movie_list = paginator.page(paginator.num_pages)
+        
+        get_webseries = webseries_content.objects.filter(sub_catagory=sub_id).order_by('-release_date')
+        
+        paginator1 = Paginator(get_webseries,12)
+        try:
+            get_webseries_list = paginator1.page(page)
+        except PageNotAnInteger:
+            get_webseries_list = paginator1.page(1)
+        except EmptyPage:
+            get_webseries_list = paginator1.page(paginator1.num_pages)
+            
         return render(request,'catagory_list.html',{'get_type_data':get_type_data,'get_sub_cat':get_sub_cat,'get_movie_list':get_movie_list,'get_webseries_list':get_webseries_list,'get_main_cat':get_main_cat})
     
     def post(self,request,*args, **kwargs):
@@ -555,19 +587,49 @@ class movies_catagory_movie(View):
     def get(self,request,type_id,*args,**kwargs):
         all_type = type_catagory.objects.filter(type_id = type_id)
         get_main_cat = all_type.values_list('main_catagory',flat=True).first()
-        get_movie_list = movie_content.objects.filter(type_catagory1 = type_id).order_by('-release_date')
-        get_webseries_list = webseries_content.objects.filter(type_catagory=type_id).order_by('-release_date')
+        get_movie = movie_content.objects.filter(type_catagory1 = type_id).order_by('-release_date')
+        page = request.GET.get('page', 1)
+                
+        paginator = Paginator(get_movie,16)
+        try:
+            get_movie_list = paginator.page(page)
+        except PageNotAnInteger:
+            get_movie_list = paginator.page(1)
+        except EmptyPage:
+            get_movie_list = paginator.page(paginator.num_pages)
+        
+        
+        get_webseries = webseries_content.objects.filter(type_catagory=type_id).order_by('-release_date')
+        
+        paginator1 = Paginator(get_webseries,16)
+        try:
+            get_webseries_list = paginator1.page(page)
+        except PageNotAnInteger:
+            get_webseries_list = paginator1.page(1)
+        except EmptyPage:
+            get_webseries_list = paginator1.page(paginator1.num_pages)
         return render(request,'movie_list.html',{'get_movie_list':get_movie_list,'get_webseries_list':get_webseries_list,'get_main_cat':get_main_cat,'all_type':all_type})
     
     def post(self,request,*args, **kwargs):
-        pass    
+        pass
     
 class movies_detail(View):
     def get(self,request,movie_id,*args, **kwargs):
         data = member_record.objects.all()
         user = data.get(uname = request.session['member_id'])
         get_movie_detail = movie_content.objects.get(movie_id = movie_id)
-        get_review_detail = movie_review.objects.filter(movie=get_movie_detail).order_by('-created_date')
+        get_review1 = movie_review.objects.filter(movie=get_movie_detail).order_by('-created_date')
+        get_review = movie_review.objects.filter(movie=get_movie_detail).order_by('-created_date')
+        page = request.GET.get('page', 1)
+        
+        paginator = Paginator(get_review,20)
+        try:
+            get_review_detail = paginator.page(page)
+        except PageNotAnInteger:
+            get_review_detail = paginator.page(1)
+        except EmptyPage:
+            get_review_detail = paginator.page(paginator.num_pages)
+        
         all_review = movie_review.objects.filter(movie = movie_id).aggregate(Avg('rating'))
         get_member = movie_review.objects.filter(member = user) & movie_review.objects.filter(movie = get_movie_detail)
         get_member_watchlist = movies_watchlist.objects.filter(member = user) & movies_watchlist.objects.filter(movie = get_movie_detail)
@@ -577,6 +639,7 @@ class movies_detail(View):
                                                    'all_review':all_review,'get_member':get_member,
                                                    'get_member_watchlist':get_member_watchlist,
                                                    'get_multiple_movie':get_multiple_movie,
+                                                   'get_review1':get_review1
                                                    })
     
     def post(self,request,movie_id,*args, **kwargs):
@@ -643,13 +706,24 @@ class webseries_detail(View):
         avg_review = webseries_review.objects.filter(webseries = webseries_id).aggregate(Avg('rating'))
         get_member_review = webseries_review.objects.filter(member = user) & webseries_review.objects.filter(webseries = get_webseries)
         get_member_watchlist = webseries_watchlist.objects.filter(member = user) & webseries_watchlist.objects.filter(webseries = get_webseries)
-        get_review_detail = webseries_review.objects.filter(webseries=get_webseries).order_by('-created_date')
+        get_review1 = webseries_review.objects.filter(webseries=get_webseries).order_by('-created_date')
+        get_review = webseries_review.objects.filter(webseries=get_webseries).order_by('-created_date')
+        
+        page = request.GET.get('page', 1)
+        
+        paginator = Paginator(get_review,20)
+        try:
+            get_review_detail = paginator.page(page)
+        except PageNotAnInteger:
+            get_review_detail = paginator.page(1)
+        except EmptyPage:
+            get_review_detail = paginator.page(paginator.num_pages)
         
         return render(request,'webseries_detail.html',{'get_webseries_detail':get_webseries_detail,'get_webseries_season':get_webseries_season,
                                                        'get_webseries_season_episode':get_webseries_season_episode,
                                                        'get_member_review':get_member_review,'avg_review':avg_review,
                                                        'get_member_watchlist':get_member_watchlist,
-                                                       'get_review_detail':get_review_detail
+                                                       'get_review_detail':get_review_detail,'get_review1':get_review1
                                                        })
     
     def post(self,request,webseries_id,*args, **kwargs):
@@ -722,24 +796,48 @@ class movies_show(View):
 class language_media(View):
     def get(self,request,language_id,*args, **kwargs):
         get_lang= language.objects.get(language_id=language_id)
-        get_mvoie_lang = multiple_audio_movies.objects.filter(language=language_id)
+        get_mvoie = multiple_audio_movies.objects.filter(language=language_id).order_by('movie__release_date').reverse()
+        page = request.GET.get('page', 1)
+        
+        paginator = Paginator(get_mvoie,16)
+        try:
+            get_mvoie_lang = paginator.page(page)
+        except PageNotAnInteger:
+            get_mvoie_lang = paginator.page(1)
+        except EmptyPage:
+            get_mvoie_lang = paginator.page(paginator.num_pages)
         return render(request,'language_wise.html',{'get_lang':get_lang,'get_mvoie_lang':get_mvoie_lang})
  
 class all_movies(View):
     def get(self,request,*args, **kwargs):
-        get_all_movies = movie_content.objects.all().order_by('-release_date')
+        all_movies = movie_content.objects.all().order_by('-release_date')
+        page = request.GET.get('page', 1)
+        
+        paginator = Paginator(all_movies,16)
+        try:
+            get_all_movies = paginator.page(page)
+        except PageNotAnInteger:
+            get_all_movies = paginator.page(1)
+        except EmptyPage:
+            get_all_movies = paginator.page(paginator.num_pages)
         return render(request,'all_movies.html',{'get_all_movies':get_all_movies})
-    
-    def post(self,request,*args, **kwargs):
-        pass 
+        
     
 class all_webseries(View):
     def get(self,request,*args, **kwargs):
-        get_all_webseries = webseries_content.objects.all().order_by('-release_date')
+        all_webseries = webseries_content.objects.all().order_by('-release_date')
+        page = request.GET.get('page', 1)
+        
+        paginator = Paginator(all_webseries,16)
+        try:
+            get_all_webseries = paginator.page(page)
+        except PageNotAnInteger:
+            get_all_webseries = paginator.page(1)
+        except EmptyPage:
+            get_all_webseries = paginator.page(paginator.num_pages)
+        
         return render(request,'all_webseries.html',{'get_all_webseries':get_all_webseries})
     
-    def post(self,request,*args, **kwargs):
-        pass 
     
 class watchlist(View):
     def post(self,request,movie_id,*args, **kwargs):

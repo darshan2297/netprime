@@ -268,7 +268,7 @@
 </div>
             <div class="col-xl-4 mt-3">
             <h2 class="text-center">Recent Reviews</h2>
-            {% for i in get_review_detail|slice:'0:10' %}
+            {% for i in get_review1|slice:'0:10' %}
                 <div class="single-widget-area video-widget mb-0">
                   <!-- Single Video Widget -->
                   <div class="single-video-widget d-flex">
@@ -308,6 +308,31 @@
                 {% endfor %}
             </div>
         </div>
+
+        {% if get_review_detail.has_other_pages %}
+        <nav aria-label="Page navigation example">
+        <ul class="pagination border" style="border-radius: 0px !important;">
+            {% if get_review_detail.has_previous %}
+            <li class="page-item p-2 border-right"><a class="page-link m-0" href="?page={{ get_review_detail.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li class="disabled p-2 border-right"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in get_review_detail.paginator.page_range %}
+            {% if get_review_detail.number == i %}
+                <li class="page-item active p-2 border-right"><span class="box" style="color: #f82249;">{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li class="page-item p-2 border-right"><a class="page-link m-0" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if get_review_detail.has_next %}
+            <li class="page-item p-2"><a class="page-link m-0" href="?page={{ get_review_detail.next_page_number }}">&raquo;</a></li>
+            {% else %}
+            <li class="disabled p-2 "><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+        </nav>
+      {% endif %}
+
     </div>
     {% if messages %}
     {% for message in messages %}

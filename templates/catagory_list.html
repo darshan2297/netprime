@@ -14,7 +14,7 @@
     background: transparent;
  }
  
- .menu a,#showall,.active{
+ .menu a,#showall,.active-all{
     display:inline-block;
     margin:0 1%;
     padding:2%;
@@ -31,7 +31,7 @@
   color: #000000;
   transition: 0.5s ease-in-out;
 }
- .active{
+ .active-all{
    background-color: #f82249;
    color: #000000 !important;
  }
@@ -62,7 +62,7 @@
     </div></center>
 
 
-    <center><a  class="active mb-5" id="showall">All</a></center>
+    <center><a  class="active-all mb-5" id="showall">All</a></center>
 
 
     <div class="row row-cols-1 row-cols-md-3">
@@ -85,6 +85,10 @@
     
   </div>
   {% endfor %}
+
+
+
+
       {% else %}
       {% if get_main_cat  ==  5 %}
   {% for j in get_webseries_list %}
@@ -108,6 +112,56 @@
 {% endif %}
 {% endif %}
   </div>
+
+  {% if get_movie_list.has_other_pages %}
+  <nav aria-label="Page navigation example">
+  <ul class="pagination border" style="border-radius: 0px !important;">
+      {% if get_movie_list.has_previous %}
+      <li class="page-item p-2 border-right"><a class="page-link m-0" href="?page={{ get_movie_list.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+      <li class="disabled p-2 border-right"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in get_movie_list.paginator.page_range %}
+      {% if get_movie_list.number == i %}
+          <li class="page-item active p-2 border-right"><span class="box" style="color: #f82249;">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+          <li class="page-item p-2 border-right"><a class="page-link m-0" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if get_movie_list.has_next %}
+      <li class="page-item p-2"><a class="page-link m-0" href="?page={{ get_movie_list.next_page_number }}">&raquo;</a></li>
+      {% else %}
+      <li class="disabled p-2 "><span>&raquo;</span></li>
+      {% endif %}
+  </ul>
+  </nav>
+{% endif %}
+
+
+{% if get_webseries_list.has_other_pages %}
+  <nav aria-label="Page navigation example">
+  <ul class="pagination border" style="border-radius: 0px !important;">
+      {% if get_webseries_list.has_previous %}
+      <li class="page-item p-2 border-right"><a class="page-link m-0" href="?page={{ get_webseries_list.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+      <li class="disabled p-2 border-right"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in get_webseries_list.paginator.page_range %}
+      {% if get_webseries_list.number == i %}
+          <li class="page-item active p-2 border-right"><span class="box" style="color: #f82249;">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+          <li class="page-item p-2 border-right"><a class="page-link m-0" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if get_webseries_list.has_next %}
+      <li class="page-item p-2"><a class="page-link m-0" href="?page={{ get_webseries_list.next_page_number }}">&raquo;</a></li>
+      {% else %}
+      <li class="disabled p-2 "><span>&raquo;</span></li>
+      {% endif %}
+  </ul>
+  </nav>
+{% endif %}
+
   </div>
 </div>
     
