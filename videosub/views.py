@@ -567,7 +567,7 @@ class movies_detail(View):
         data = member_record.objects.all()
         user = data.get(uname = request.session['member_id'])
         get_movie_detail = movie_content.objects.get(movie_id = movie_id)
-        get_review_detail = movie_review.objects.filter(movie=get_movie_detail).order_by('-release_date')
+        get_review_detail = movie_review.objects.filter(movie=get_movie_detail).order_by('-created_date')
         all_review = movie_review.objects.filter(movie = movie_id).aggregate(Avg('rating'))
         get_member = movie_review.objects.filter(member = user) & movie_review.objects.filter(movie = get_movie_detail)
         get_member_watchlist = movies_watchlist.objects.filter(member = user) & movies_watchlist.objects.filter(movie = get_movie_detail)
@@ -643,7 +643,7 @@ class webseries_detail(View):
         avg_review = webseries_review.objects.filter(webseries = webseries_id).aggregate(Avg('rating'))
         get_member_review = webseries_review.objects.filter(member = user) & webseries_review.objects.filter(webseries = get_webseries)
         get_member_watchlist = webseries_watchlist.objects.filter(member = user) & webseries_watchlist.objects.filter(webseries = get_webseries)
-        get_review_detail = webseries_review.objects.filter(webseries=get_webseries).order_by('-release_date')
+        get_review_detail = webseries_review.objects.filter(webseries=get_webseries).order_by('-created_date')
         
         return render(request,'webseries_detail.html',{'get_webseries_detail':get_webseries_detail,'get_webseries_season':get_webseries_season,
                                                        'get_webseries_season_episode':get_webseries_season_episode,
