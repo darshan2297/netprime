@@ -35,9 +35,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-import djcelery
-djcelery.setup_loader()
-
 
 # Application definition
 
@@ -50,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #third party apps
     'crispy_forms',
-    'djcelery',
     
     #myapps
     'videosub',
@@ -178,20 +174,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
-from celery.schedules import crontab
 
-
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-# CELERY_BEAT_SCHEDULE = {
-#     'my_task':{
-#         'task':'videosub.tasks.check_membership',
-#         'schedule':crontab(minute=15, hour=00),
-#     },
-# }
-    
 # AWS s3 config
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
