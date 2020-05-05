@@ -49,15 +49,14 @@
 
 <div class="bg-pattern2">
   {% for j in get_sub_cat %}
-  <h1 class="text-center pt-3 ">{{j.sub_catagory}}</h1>
+    <h1 class="text-center pt-3">{{j.sub_catagory}}</h1>
   {% endfor %}
 
-   <div class="container mb-5">
+   <div class="container">
     <center><div class="menu">
       
     {% for i in get_type_data %}
-      
-    <a href="{% url 'videosub:movies_catagory_movie' i.type_id %}" class="showSingle">{{ i.type_catagory }}</a>
+      <a href="{% url 'videosub:movies_catagory_movie' i.type_id %}" class="showSingle mb-3">{{ i.type_catagory }}</a>
     {% endfor %}
     </div></center>
 
@@ -68,7 +67,7 @@
     <div class="row row-cols-1 row-cols-md-3">
     {% if get_main_cat  ==  3 %}
       {% for i in get_movie_list %}
-      <div class="col-12 col-md-3 mb-4">
+      <div class="col-6 col-md-3 mb-4">
       <div class="card-deck">
           <div class="card">
             <a href="{% url 'videosub:movies-detail' i.movie_id %}"><img src="{{i.movie_bgimage.url}}" class="card-img-top" alt="..."></a>
@@ -92,7 +91,7 @@
       {% else %}
       {% if get_main_cat  ==  5 %}
   {% for j in get_webseries_list %}
-<div class="col-12 col-md-3 mb-4">
+<div class="col-6 col-md-3 mb-4">
   <div class="card-deck">
   
     <div class="card">

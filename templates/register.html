@@ -140,21 +140,22 @@
                             </div>
                             <div class="row mb-5">
                                 <div class="col-12">
-                                    <div class="name text-danger"><b> Note: This Payment transaction is just testing purpose
-                                                                    so no any charges deducted form your wallet or bank account.
-                                                                    Just compelete proccess and buy membership.
+                                    <div class="name text-danger justify-content-center"><b> 
+                                    Note: This Payment transaction is just testing purpose
+                                    so no any charges deducted form your wallet or bank account.
+                                    Just compelete proccess and buy membership.
                                     </b></div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                 <label class="label label--block text-white">Your Favourite Movie?</label>
                                         <div class="input-group">
                                             <input class="input--style-5"  style="border-radius: 0px;" type="text" name="fmovie" id="fmovie">
                                         </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     <label class="label label--block text-white">Your Favourite Webseries?</label>
                                     <div class="input-group">
                                         <input class="input--style-5"  style="border-radius: 0px;" type="text" name="fwebseries" id="fwebseries">
@@ -163,10 +164,15 @@
                             </div>
                             <input type="hidden" name="price" value="{{memid1.price}}">
                   
-                            <center><div>
+                            <div class="row ">
+                                <div class="col-12 col-md-6 text-center mb-3">
                                 <button class="btn btn--red" style="background-color: #f82249; border-radius: 0px;" name="submit" id="submit"  type="submit">Checkout</button>
-                                <a class="btn btn--red" style="background-color: #f82249; border-radius: 0px;" role="button" href="{% url 'videosub:loginreg' %}">Sign in</a>
-                            </div></center>
+                                </div>
+                                <div class="col-12 col-md-6 text-center">
+                                    <a class="btn btn--red" style="background-color: #f82249; border-radius: 0px;" role="button" href="{% url 'videosub:loginreg' %}">Sign in</a>
+                                </div>
+
+                            </div>
                         </form>
                     </div>
                 </div>
