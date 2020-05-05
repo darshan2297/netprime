@@ -89,7 +89,7 @@ class renewpage(View):
             'INDUSTRY_TYPE_ID': 'Retail',
             'WEBSITE': 'WEBSTAGING',
             'CHANNEL_ID': 'WEB',
-            'CALLBACK_URL':'http://127.0.0.1:8000/renewhandlerequest/',
+            'CALLBACK_URL':'http://netprime.pythonanywhere.com/renewhandlerequest/',
         }
         paytm_params = dict(param_dict)
         Checksum = checksum.generate_checksum(paytm_params, MERCHANT_KEY)
@@ -276,7 +276,7 @@ class register(View):
                         'INDUSTRY_TYPE_ID': 'Retail',
                         'WEBSITE': 'WEBSTAGING',
                         'CHANNEL_ID': 'WEB',
-                        'CALLBACK_URL':'http://127.0.0.1:8000/handlerequest/',
+                        'CALLBACK_URL':'http://netprime.pythonanywhere.com/handlerequest/',
                     }
                     paytm_params = dict(param_dict)
                     Checksum = checksum.generate_checksum(paytm_params, MERCHANT_KEY)
