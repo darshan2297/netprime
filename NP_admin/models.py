@@ -111,8 +111,6 @@ class multiple_audio_movies(models.Model):
 class webseries_content(models.Model):
     webseries_id  = models.AutoField(primary_key=True)
     webseries_name = models.CharField(max_length= 100)
-    duration_hours = models.IntegerField()
-    duration_minutes = models.IntegerField()
     release_date = models.DateField()
     language = models.CharField(max_length=50)
     description = models.TextField(max_length = 1500)
@@ -137,13 +135,12 @@ class webseries_season(models.Model):
     duration_minutes = models.IntegerField()
     release_date = models.DateField()
     season = models.CharField(max_length = 20)
-    webseries_season_poster = models.ImageField(upload_to='webseries_season_poster',editable=True,blank=True,null = True)
     webseries_trailer_thumbnail = models.ImageField(upload_to='webseries_trailers_thumbnail',null = True,blank=True)
     webseries_trailer_720p = models.FileField(upload_to ='webseries_trailers_720p',null = True,blank=True)
     created_date = models.DateField(default=datetime.today())
 
     def __str__(self):
-        return self.season
+        return '{} {}'.format(self.webseries_id.webseries_name, self.season)
     
 class webseries_season_episode(models.Model):
     webseries_season_episode_id = models.AutoField(primary_key=True)
@@ -153,14 +150,16 @@ class webseries_season_episode(models.Model):
     duration_hours = models.IntegerField()
     duration_minutes = models.IntegerField()
     release_date = models.DateField()
+    language = models.ForeignKey(language,on_delete = models.CASCADE,null = True)
     episode = models.CharField(max_length = 20)
-    webseries_season_poster = models.ImageField(upload_to='webseries_season_poster',editable=True,blank=True,null = True)
     webseries_thumbnail = models.ImageField(upload_to='webseries_thumbnail',null = True,blank=True)
     webseries_720p = models.FileField(upload_to ='webseries_720p',null = True,blank=True)
     created_date = models.DateField(default=datetime.today())
     
     def __str__(self):
-        return self.episode_name
+        return '{} {} {} {}'.format(self.webseries_id.webseries_name, self.webseries_season_id.season,
+                                 self.episode_name,self.language.language)
+
    
 
     

@@ -110,7 +110,7 @@
                 <div class="col-xl mt-5">
                     <div class="blog-content p-4">
                         <h3 class="text-white">{{get_movie_detail.movie_name|upper}}</h3>
-                        <p>Duration: {{get_movie_detail.duration_hours}} Hrs {{i.duration_minutes}} Mins</p>
+                        <p>Duration: {{get_movie_detail.duration_hours}} Hrs {{get_movie_detail.duration_minutes}} Mins</p>
                         <p>Release Date: {{get_movie_detail.release_date}}</p>
                         <p>Language: {{get_movie_detail.language}}</p>
                         <p>Description: {{get_movie_detail.description |slice:"0:200"}}... <a target="blank" style="color: #f82249; font-size: small" href="{{get_movie_detail.more_info}}">Know More About {{get_movie_detail.movie_name|upper}}</a></p>

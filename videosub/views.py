@@ -796,17 +796,29 @@ class movies_show(View):
 class language_media(View):
     def get(self,request,language_id,*args, **kwargs):
         get_lang= language.objects.get(language_id=language_id)
-        get_mvoie = multiple_audio_movies.objects.filter(language=language_id).order_by('movie__release_date').reverse()
+        get_movie = multiple_audio_movies.objects.filter(language=language_id).order_by('movie__release_date').reverse()
         page = request.GET.get('page', 1)
         
-        paginator = Paginator(get_mvoie,16)
+        paginator = Paginator(get_movie,16)
         try:
-            get_mvoie_lang = paginator.page(page)
+            get_movie_lang = paginator.page(page)
         except PageNotAnInteger:
-            get_mvoie_lang = paginator.page(1)
+            get_movie_lang = paginator.page(1)
         except EmptyPage:
-            get_mvoie_lang = paginator.page(paginator.num_pages)
-        return render(request,'language_wise.html',{'get_lang':get_lang,'get_mvoie_lang':get_mvoie_lang})
+            get_movie_lang = paginator.page(paginator.num_pages)
+            
+        get_webseries = webseries_season_episode.objects.filter(language=language_id).order_by('webseries_season_id__release_date').reverse()
+        page = request.GET.get('page', 1)
+        
+        paginator = Paginator(get_webseries,16)
+        try:
+            get_webseries_lang = paginator.page(page)
+        except PageNotAnInteger:
+            get_webseries_lang = paginator.page(1)
+        except EmptyPage:
+            get_webseries_lang = paginator.page(paginator.num_pages)    
+        return render(request,'language_wise.html',{'get_lang':get_lang,'get_movie_lang':get_movie_lang,
+                                                    'get_webseries_lang':get_webseries_lang})
  
 class all_movies(View):
     def get(self,request,*args, **kwargs):
@@ -965,5 +977,24 @@ class PasswordChange(View):
             else:
                 messages.info(request,'Old Password is Incorrect')
                 return render(request,'change-password.html')
+
+class searchview(View):
+    def get(self,request,*args, **kwargs):   
+        if request.method == 'GET': # this will be GET now      
+            search_text =  request.GET.get('search') 
+            if movie_content.objects.filter(movie_name__icontains=search_text):
+                get_result_movie = movie_content.objects.filter(movie_name__icontains=search_text)
+                print(get_result_movie)
+                return render(request,"search_template.html",{'get_result_movie':get_result_movie})
+            else:
+                if webseries_content.objects.filter(webseries_name__icontains=search_text):
+                    get_result_webseries = webseries_content.objects.filter(webseries_name__icontains=search_text)
+                    print(get_result_webseries)
+                    return render(request,"search_template.html",{'get_result_webseries':get_result_webseries})
+                else:
+                    i=True
+                    return render(request,"search_template.html",{'i':i})
+        else:
+            return render(request,"search_template.html",{})
+                    
                 
-            

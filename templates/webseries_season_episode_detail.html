@@ -7,7 +7,7 @@
     {% block content %}
     <div class="container">
         {% for i in get_webseries_season_episode %}
-        <h1>{{i.webseries_season_id.season|slice:'0:1'|upper }}{{i.webseries_season_id.season|last}} {{i.episode|slice:'0:1'|upper}}{{i.episode|last}}  {{i.episode_name}}</h1> 
+        <h1>{{i.webseries_season_id.season|slice:'0:1'|upper }}{{i.webseries_season_id.season|last}} {{i.episode|upper}} {{i.episode_name}}</h1> 
         <p> <i class="fa fa-clock-o"></i>&nbsp;{{i.duration_hours}} Hrs {{i.duration_minutes}} Mins | {{i.release_date}}</p>
     </div>
     <div class="container mt-5 mb-5"> 

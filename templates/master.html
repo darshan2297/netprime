@@ -98,9 +98,9 @@
                         <div class="search-login-area d-flex align-items-center">
                             <!-- Top Search Area -->
                             <div class="top-search-area">
-                                <form action="#" method="post">
-                                    
-                                    <input type="search" name="top-search" id="topSearch" placeholder="Search">
+                                <form name="myform" method="GET" action="{% url 'videosub:search' %}">    
+                                    {% csrf_token %}                                 
+                                    <input type="search" name="search" id="topSearch" placeholder="Search">
                                     <button type="submit" class="btn"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>

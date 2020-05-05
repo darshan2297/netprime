@@ -38,7 +38,7 @@
         <!-- Hero Post Slides -->
         <div class="hero-post-slides owl-carousel">
             <!-- Single Slide -->
-            {% for i in latest_movie_order|slice:"0:3" %}
+            {% for i in latest_movie_order|slice:"0:5" %}
             <div class="single-slide bg-img bg-overlay" style="background-image: url({{i.movie_bgimage.url}})">
                 <!-- Blog Content -->
                 <div class="container h-100">
@@ -67,7 +67,7 @@
                             <div class="blog-content" data-animation="fadeInUp" data-delay="100ms">
                                 <h2 class="text-white" data-animation="fadeInUp" data-delay="400ms">{{i.webseries_name|upper}}</h2>
                                 <p data-animation="fadeInUp" data-delay="700ms">{{i.description|slice:"0:300"}}...</p>
-                                <p data-animation="fadeInUp" data-delay="700ms" style="color: #f82249;">{{i.duration_hours}} Hrs {{i.duration_minutes}} Mins | {{i.release_date}} | <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10 | {{i.language}} | {{ i.type_catagory }}</p>
+                                <p data-animation="fadeInUp" data-delay="700ms" style="color: #f82249;">{{i.release_date}} | <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10 | {{i.language}} | {{ i.type_catagory }}</p>
                                 <div class="button-css nav mt-3">
                                     <a data-animation="fadeInUp" data-delay="700ms" href="{% url 'videosub:webseries-detail' i.webseries_id %}" role="button"><span>&nbsp;Watch Webseries Now</span> <i class="fa fa-video-camera" aria-hidden="true"></i></a>
                                     <!-- <a data-animation="fadeInUp" data-delay="700ms" href="" role="button"><span>&nbsp;Add to Mylist+</span> <i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
@@ -113,7 +113,7 @@
                 <div class="popular-games-slideshow owl-carousel">
 
                     <!-- Single Games -->
-                    {% for i in latest_movie_order %}
+                    {% for i in latest_movie_order|slice:"0:10" %}
                     <div class="single-games-slide">
                         <a href="{% url 'videosub:movies-detail' i.movie_id %}"><img src="{{ i.movie_poster.url }}" alt="movie_poster"></a>
                         <div class="slide-text">
@@ -135,7 +135,7 @@
                 <div class="popular-games-slideshow owl-carousel">
 
                     <!-- Single Games -->
-                    {% for i in latest_webseries_order %}
+                    {% for i in latest_webseries_order|slice:"0:20" %}
                     <div class="single-games-slide">
                         <a href="{% url 'videosub:webseries-detail' i.webseries_id %}"><img src="{{i.webseries_poster.url}}" class="card-img-top" alt="..."> </a>
                         <div class="slide-text">
