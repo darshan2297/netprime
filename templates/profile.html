@@ -78,8 +78,8 @@
                   <img src="{{ user_data.profile_pic.url }}" class="card-img-top" alt="User Profile">
                   <a href="{% url 'videosub:editprofile'%}" class="edit-profile-sidebar">Edit</a>
                   <div class="card-body">
-                    <h5 class="card-title text-center">{{user_data.first_name}}&nbsp;{{user_data.last_name}} </h5>
-                      <h6 class="card-title text-center">{{user_data.country}} </h6>
+                    <h5 class="card-title text-center">{{user_data.first_name|upper}}&nbsp;{{user_data.last_name|upper}} </h5>
+                      <h6 class="card-title text-center">{{user_data.country|upper}} </h6>
                       <div class="top-social-info text-center">
                         <a class="mr-2" href="{{user_data.facebook}}" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a class="mr-2" href="{{user_data.twitter}}" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
