@@ -222,7 +222,7 @@
             <div class="tab-pane fade show active" id="movie" role="tabpanel" aria-labelledby="movie-tab">
             <div class="row row-cols-1 row-cols-md-3">
                 {% for i in latest_movie_order %}
-                <div class="col-12 col-md-3 mb-4">
+                <div class="col-6 col-md-3 mb-4">
                 <div class="card-deck">
                     <div class="card">
                     <a href="{% url 'videosub:movies-detail' i.movie_id %}" ><img src="{{i.movie_bgimage.url}}" class="card-img-top" alt="..."> </a>
