@@ -191,23 +191,27 @@ class loginregview(View):
                 log = member_record.objects.filter(uname=unm,password=passwd).count()
                 
                 all_subscription = subscription.objects.all()
-                get_sub = all_subscription.get(user_member = user.mid)
+                if all_subscription.get(user_member = user.mid):
+                    get_sub = all_subscription.get(user_member = user.mid)
                 
-                if remain_days == 0:
-                    get_sub.active = False
-                    get_sub.save()
+                    if remain_days == 0:
+                        get_sub.active = False
+                        get_sub.save()
+                        
+                    get_sub1 = all_subscription.get(user_member = user.mid)
                     
-                get_sub1 = all_subscription.get(user_member = user.mid)
-                
-                if remain_days != 0 and get_sub1.active:
-                    if user and check_pw_hash(passwd, user.password):
-                        request.session['member_id'] = unm
-                        return redirect('videosub:home')
+                    if remain_days != 0 and get_sub1.active:
+                        if user and check_pw_hash(passwd, user.password):
+                            request.session['member_id'] = unm
+                            return redirect('videosub:home')
+                        else:
+                            messages.info(request,'Please enter correct password')
+                            return redirect('videosub:loginreg')
                     else:
-                        messages.info(request,'Please enter correct password')
-                        return redirect('videosub:loginreg')
+                        
+                        messages.info(request,'Please renew the membership')
+                        return redirect('/renewmembership/%s' % user.mid)
                 else:
-                    
                     messages.info(request,'Please renew the membership')
                     return redirect('/renewmembership/%s' % user.mid)
             else:
