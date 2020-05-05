@@ -45,9 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #third party apps
-    'crispy_forms',
-    
     #myapps
     'videosub',
     'NP_admin',
@@ -170,8 +167,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # LOGIN_URL = '/testreglog/user_login'
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 
