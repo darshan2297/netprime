@@ -191,7 +191,7 @@ class loginregview(View):
                 log = member_record.objects.filter(uname=unm,password=passwd).count()
                 
                 all_subscription = subscription.objects.all()
-                if all_subscription.get(user_member = user.mid):
+                if all_subscription.filter(user_member = user.mid).exists():
                     get_sub = all_subscription.get(user_member = user.mid)
                 
                     if remain_days == 0:
