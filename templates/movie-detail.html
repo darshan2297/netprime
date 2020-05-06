@@ -95,6 +95,28 @@
       border: 0px;
       cursor: pointer;
     }
+
+    .nav-tabs .nav-link{
+      font-size: 17px !important;
+      font-weight: 700 !important;
+      padding-left: 20px !important;
+      padding-top: 13px !important;
+      padding-bottom: 13px !important;
+      padding-right: 20px !important;
+      border-radius: 0px !important;
+      }
+    
+     .nav-tabs .nav-link.active {
+      padding-left: 20px !important;
+      padding-top: 13px !important;
+      padding-bottom: 13px !important;
+      padding-right: 20px !important;
+      font-size: 17px !important;
+      font-weight: 700 !important;
+      background-color: #f82249 !important;
+      color: white !important; 
+      border-radius: 0px !important;
+    }
       
 
 </style>
@@ -298,30 +320,38 @@
                 {% endfor %}
               </div>
                 
-                <h3>Cast</h3>
-                <div class="container mt-3">
-                    <div class="row">
-                        {% for cast in get_movie_detail.cast.all %}
-                        <div class="col-4 col-md-2">
-                            <a target="blank" href="{{cast.more_info}}"><img src="{{cast.cast_profile.url}}" class="image--cover">
-                            <center><p class="cast">{{cast.cast_name}}</p></center></a>
-                        </div>
-                        {% endfor %} 
-                            
-                    </div>
-                </div>
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item mr-auto">
+                  <a class="nav-link active" id="cast-tab" data-toggle="tab" href="#cast" role="tab" aria-controls="cast" aria-selected="true">Cast</a>
+                </li>
+                <li class="nav-item ml-auto">
+                  <a class="nav-link" id="crew-tab" data-toggle="tab" href="#crew" role="tab" aria-controls="crew" aria-selected="false">Crew</a>
+                </li>
+              </ul>
+              <div class="tab-content mb-3" id="myTabContent">
 
-                <h3>Crew</h3>
-                <div class="container mt-3">
-                    <div class="row">
-                        {% for crew in get_movie_detail.crew.all %}
-                        <div class="col-4 col-md-2">
-                            <a target="blank" href="{{crew.more_info}}"><img src="{{crew.crew_profile.url}}" class="image--cover">
-                            <center><p class="cast">{{crew.crew_name}}</p></center></a>
-                        </div>
-                        {% endfor %}
+                <div class="tab-pane fade show active" id="cast" role="tabpanel" aria-labelledby="cast-tab">
+                  <div class="row mt-3">
+                    {% for cast in get_movie_detail.cast.all %}
+                    <div class="col-4 col-md-2">
+                        <a target="blank" href="{{cast.more_info}}"><img src="{{cast.cast_profile.url}}" class="image--cover">
+                        <center><p class="cast">{{cast.cast_name}}</p></center></a>
                     </div>
+                    {% endfor %} 
+                  </div>
                 </div>
+                
+                <div class="tab-pane fade" id="crew" role="tabpanel" aria-labelledby="crew-tab">
+                  <div class="row mt-3">
+                    {% for crew in get_movie_detail.crew.all %}
+                    <div class="col-4 col-md-2">
+                        <a target="blank" href="{{crew.more_info}}"><img src="{{crew.crew_profile.url}}" class="image--cover">
+                        <center><p class="cast">{{crew.crew_name}}</p></center></a>
+                    </div>
+                    {% endfor %}
+                </div>
+                </div>
+              </div>
             </div>
 
 
