@@ -672,8 +672,7 @@ class edit_review(View):
         if request.method == 'POST':
             up_review = movie_review.objects.get(movie_review_id = request.POST['review_id'])
             get_movie_detail = movie_content.objects.get(movie_id = movie_id)
-            get_movie_watchlist_detail = movies_watchlist.objects.get(movie = movie_id)
-            # print(get_movie_watchlist_detail)
+  
             data = member_record.objects.all()
             user = data.get(uname = request.session['member_id'])
             

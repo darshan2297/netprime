@@ -227,11 +227,11 @@
 
                 <div class="button-css nav mt-2">
                     {% if get_member_watchlist %}
-                    <a href="{% url 'videosub:profile' %}" data-animation="fadeInUp" data-delay="700ms" data-toggle="tooltip" data-placement="top" title="GotoWatchList" ><span>&nbsp;GotoWatchList</span> <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                    <a href="{% url 'videosub:profile' %}" data-animation="fadeInUp" data-delay="700ms" data-toggle="tooltip" data-placement="top" title="GotoWatchList" ><span>&nbsp;Goto WatchList</span> <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
                     {% else %}
                     <form action="{% url 'videosub:web_watchlist' i.webseries_id %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <button data-animation="fadeInUp" data-delay="700ms"  class="watchlist" type="submit" data-toggle="tooltip" data-placement="top" title="AddWacthList" ><span>&nbsp;MyWatchList+</span> <i class="fa fa-list" aria-hidden="true"></i></button>
+                        <button data-animation="fadeInUp" data-delay="700ms"  class="watchlist" type="submit" data-toggle="tooltip" data-placement="top" title="AddWacthList" ><span>&nbsp;Add MyWatchList <i class="fa fa-plus-circle"></i></span> <i class="fa fa-list" aria-hidden="true"></i></button>
                     </form>
                     {% endif %}
                 </div>
@@ -240,7 +240,7 @@
         </div>
     </div>
 
-    <div class="container mt-5 mb-5">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-xl-8">
                 <h1 class="">{{i.webseries_name|upper}}</h1>
@@ -277,7 +277,7 @@
                       <div class="card-deck">
                         
                           <div class="card mt-3">
-                          <img class="card-img" src="{{i.webseries_thumbnail.url}}" alt="NETPRIME">
+                          <img class="card-img" src="{{i.webseries_thumbnail.url}}" alt="NETPRIME" >
                           <div class="overlay-div"></div>
                           <div class="card-img-overlay justify-content-end">
                             <a class="edit-profile-sidebar text-white"><i class="fa fa-video-camera"></i></a>
@@ -332,7 +332,7 @@
                   <!-- Single Video Widget -->
                   <div class="single-video-widget d-flex">
                       <div class="video-thumbnail">
-                          <img src="{{i.member.profile_pic.url}}" alt="">
+                          <img src="{{i.member.profile_pic.url}}" alt="" style="height: 83px; width: 80px;">
                       </div>
                       <div class="video-text">
                           <a class="video-title">{{i.member|upper}}</a>
@@ -346,15 +346,15 @@
             </div>
         </div>
     
-        <div class="row">
-          <div class="col-12 col-xl-4">
-            <h3 class="">More Reviews</h3>
+        <div class="row mt-3">
+          <div class="col-12 col-xl-3">
+            <h3 class="mb-3">More Reviews</h3>
             {% for i in get_review_detail|slice:'10:' %}
-                <div class="single-widget-area video-widget mb-0">
+                <div class="single-widget-area video-widget mb-5">
                   <!-- Single Video Widget -->
                   <div class="single-video-widget d-flex">
                       <div class="video-thumbnail">
-                          <img src="{{i.member.profile_pic.url}}" alt="">
+                          <img src="{{i.member.profile_pic.url}}" alt="" style="height: 83px; width: 83px;">
                       </div>
                       <div class="video-text">
                           <a class="video-title">{{i.member|upper}}</a>
