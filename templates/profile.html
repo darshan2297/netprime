@@ -75,11 +75,11 @@
     <div class="row">
         <div class="col-lg-3 mb-5">
                 <div class="card">
-                  <img src="{{ user_data.profile_pic.url }}" class="card-img-top" alt="User Profile">
+                  <img src="{{ user_data.profile_pic.url }}" class="card-img-top" alt="User Profile" style="height: 300px; position: inherit;">
                   <a href="{% url 'videosub:editprofile'%}" class="edit-profile-sidebar">Edit</a>
                   <div class="card-body">
-                    <h5 class="card-title text-center">{{user_data.first_name|upper}}&nbsp;{{user_data.last_name|upper}} </h5>
-                      <h6 class="card-title text-center">{{user_data.country|upper}} </h6>
+                    <h5 class="card-title text-center"><b>{{user_data.first_name|upper}}&nbsp;{{user_data.last_name|upper}}</b></h5>
+                      <h6 class="card-title text-center">{{user_data.country|upper}}</h6>
                       <div class="top-social-info text-center">
                         <a class="mr-2" href="{{user_data.facebook}}" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a class="mr-2" href="{{user_data.twitter}}" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
