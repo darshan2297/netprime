@@ -481,34 +481,38 @@ class homeview(TemplateView):
  
 class profile(View):
     def get(self,request,*args, **kwargs):
-        data = member_record.objects.all()
-        user_data = data.get(uname = request.session['member_id'])
-        get_movie_review = movie_review.objects.filter(member = user_data)
-        get_webseries_review = webseries_review.objects.filter(member = user_data)
-        get_movie_review_count = movie_review.objects.filter(member = user_data).count()
-        get_webseries_review_count = webseries_review.objects.filter(member = user_data).count()
-        count_review = get_movie_review_count + get_webseries_review_count
-        get_movie_watchlist = movies_watchlist.objects.filter(member = user_data)
-        get_webseries_watchlist = webseries_watchlist.objects.filter(member = user_data)
-        get_webseries_watchlist_count = webseries_watchlist.objects.filter(member = user_data).count()
-        get_movie_watchlist_count = movies_watchlist.objects.filter(member = user_data).count()
-        count_watchlist = get_webseries_watchlist_count + get_movie_watchlist_count
-        
-        return render(request,'profile.html',{'user_data':user_data,'get_movie_review':get_movie_review,
-                                              'get_movie_review_count':get_movie_review_count,
-                                              'get_movie_watchlist':get_movie_watchlist,
-                                              'get_webseries_watchlist':get_webseries_watchlist,
-                                              'get_movie_watchlist_count':get_movie_watchlist_count,
-                                              'count_watchlist':count_watchlist,'count_review':count_review,
-                                              'get_webseries_review':get_webseries_review
-                                              })
+        if request.session.has_key('member_id'):
+            data = member_record.objects.all()
+            user_data = data.get(uname = request.session['member_id'])
+            get_movie_review = movie_review.objects.filter(member = user_data)
+            get_webseries_review = webseries_review.objects.filter(member = user_data)
+            get_movie_review_count = movie_review.objects.filter(member = user_data).count()
+            get_webseries_review_count = webseries_review.objects.filter(member = user_data).count()
+            count_review = get_movie_review_count + get_webseries_review_count
+            get_movie_watchlist = movies_watchlist.objects.filter(member = user_data)
+            get_webseries_watchlist = webseries_watchlist.objects.filter(member = user_data)
+            get_webseries_watchlist_count = webseries_watchlist.objects.filter(member = user_data).count()
+            get_movie_watchlist_count = movies_watchlist.objects.filter(member = user_data).count()
+            count_watchlist = get_webseries_watchlist_count + get_movie_watchlist_count
+            
+            return render(request,'profile.html',{'user_data':user_data,'get_movie_review':get_movie_review,
+                                                'get_movie_review_count':get_movie_review_count,
+                                                'get_movie_watchlist':get_movie_watchlist,
+                                                'get_webseries_watchlist':get_webseries_watchlist,
+                                                'get_movie_watchlist_count':get_movie_watchlist_count,
+                                                'count_watchlist':count_watchlist,'count_review':count_review,
+                                                'get_webseries_review':get_webseries_review
+                                                })
+        return redirect('videosub:loginreg')
 
            
 class editprofile(View):
     def get(self,request,*args, **kwargs):
-        all_member = member_record.objects.all()
-        log_member = all_member.get(uname = request.session['member_id'])
-        return render(request,'editprofile.html',{'log_member':log_member})
+        if request.session.has_key('member_id'):
+            all_member = member_record.objects.all()
+            log_member = all_member.get(uname = request.session['member_id'])
+            return render(request,'editprofile.html',{'log_member':log_member})
+        return redirect('videosub:loginreg')
     
     def post(self,request,*args, **kwargs):
         if request.method == 'POST' and request.FILES['imageUpload']:
@@ -558,94 +562,97 @@ class delete_account(View):
 
 class catagory_list(View):
     def get(self,request,sub_id,*args,**kwargs):
-        get_sub_cat = sub_catagory.objects.filter(sub_id = sub_id)
-        get_main_cat = get_sub_cat.values_list('main_catagory',flat=True).first()
-        get_type_data = type_catagory.objects.filter(sub_catagory = sub_id)
-        get_movie = movie_content.objects.filter(sub_catagory=sub_id).order_by('-release_date')
-        page = request.GET.get('page', 1)
-                
-        paginator = Paginator(get_movie,12)
-        try:
-            get_movie_list = paginator.page(page)
-        except PageNotAnInteger:
-            get_movie_list = paginator.page(1)
-        except EmptyPage:
-            get_movie_list = paginator.page(paginator.num_pages)
-        
-        get_webseries = webseries_content.objects.filter(sub_catagory=sub_id).order_by('-release_date')
-        
-        paginator1 = Paginator(get_webseries,12)
-        try:
-            get_webseries_list = paginator1.page(page)
-        except PageNotAnInteger:
-            get_webseries_list = paginator1.page(1)
-        except EmptyPage:
-            get_webseries_list = paginator1.page(paginator1.num_pages)
+        if request.session.has_key('member_id'):
+            get_sub_cat = sub_catagory.objects.filter(sub_id = sub_id)
+            get_main_cat = get_sub_cat.values_list('main_catagory',flat=True).first()
+            get_type_data = type_catagory.objects.filter(sub_catagory = sub_id)
+            get_movie = movie_content.objects.filter(sub_catagory=sub_id).order_by('-release_date')
+            page = request.GET.get('page', 1)
+                    
+            paginator = Paginator(get_movie,12)
+            try:
+                get_movie_list = paginator.page(page)
+            except PageNotAnInteger:
+                get_movie_list = paginator.page(1)
+            except EmptyPage:
+                get_movie_list = paginator.page(paginator.num_pages)
             
-        return render(request,'catagory_list.html',{'get_type_data':get_type_data,'get_sub_cat':get_sub_cat,'get_movie_list':get_movie_list,'get_webseries_list':get_webseries_list,'get_main_cat':get_main_cat})
-    
-    def post(self,request,*args, **kwargs):
-        pass
+            get_webseries = webseries_content.objects.filter(sub_catagory=sub_id).order_by('-release_date')
+            
+            paginator1 = Paginator(get_webseries,12)
+            try:
+                get_webseries_list = paginator1.page(page)
+            except PageNotAnInteger:
+                get_webseries_list = paginator1.page(1)
+            except EmptyPage:
+                get_webseries_list = paginator1.page(paginator1.num_pages)
+                
+            return render(request,'catagory_list.html',{'get_type_data':get_type_data,'get_sub_cat':get_sub_cat,'get_movie_list':get_movie_list,'get_webseries_list':get_webseries_list,'get_main_cat':get_main_cat})
+        return redirect('videosub:loginreg')
+
     
 class movies_catagory_movie(View):
     def get(self,request,type_id,*args,**kwargs):
-        all_type = type_catagory.objects.filter(type_id = type_id)
-        get_main_cat = all_type.values_list('main_catagory',flat=True).first()
-        get_movie = movie_content.objects.filter(type_catagory1 = type_id).order_by('-release_date')
-        page = request.GET.get('page', 1)
-                
-        paginator = Paginator(get_movie,16)
-        try:
-            get_movie_list = paginator.page(page)
-        except PageNotAnInteger:
-            get_movie_list = paginator.page(1)
-        except EmptyPage:
-            get_movie_list = paginator.page(paginator.num_pages)
-        
-        
-        get_webseries = webseries_content.objects.filter(type_catagory=type_id).order_by('-release_date')
-        
-        paginator1 = Paginator(get_webseries,16)
-        try:
-            get_webseries_list = paginator1.page(page)
-        except PageNotAnInteger:
-            get_webseries_list = paginator1.page(1)
-        except EmptyPage:
-            get_webseries_list = paginator1.page(paginator1.num_pages)
-        return render(request,'movie_list.html',{'get_movie_list':get_movie_list,'get_webseries_list':get_webseries_list,'get_main_cat':get_main_cat,'all_type':all_type})
-    
-    def post(self,request,*args, **kwargs):
-        pass
+        if request.session.has_key('member_id'):
+            all_type = type_catagory.objects.filter(type_id = type_id)
+            get_main_cat = all_type.values_list('main_catagory',flat=True).first()
+            get_movie = movie_content.objects.filter(type_catagory1 = type_id).order_by('-release_date')
+            page = request.GET.get('page', 1)
+                    
+            paginator = Paginator(get_movie,16)
+            try:
+                get_movie_list = paginator.page(page)
+            except PageNotAnInteger:
+                get_movie_list = paginator.page(1)
+            except EmptyPage:
+                get_movie_list = paginator.page(paginator.num_pages)
+            
+            
+            get_webseries = webseries_content.objects.filter(type_catagory=type_id).order_by('-release_date')
+            
+            paginator1 = Paginator(get_webseries,16)
+            try:
+                get_webseries_list = paginator1.page(page)
+            except PageNotAnInteger:
+                get_webseries_list = paginator1.page(1)
+            except EmptyPage:
+                get_webseries_list = paginator1.page(paginator1.num_pages)
+            return render(request,'movie_list.html',{'get_movie_list':get_movie_list,'get_webseries_list':get_webseries_list,'get_main_cat':get_main_cat,'all_type':all_type})
+        return redirect('videosub:loginreg')
+
     
 class movies_detail(View):
     def get(self,request,movie_id,*args, **kwargs):
-        data = member_record.objects.all()
-        user = data.get(uname = request.session['member_id'])
-        get_movie_detail = movie_content.objects.get(movie_id = movie_id)
-        get_review1 = movie_review.objects.filter(movie=get_movie_detail).order_by('-created_date')
-        get_review = movie_review.objects.filter(movie=get_movie_detail).order_by('-created_date')
-        page = request.GET.get('page', 1)
+        if request.session.has_key('member_id'):
+            data = member_record.objects.all()
+            user = data.get(uname = request.session['member_id'])
+            get_movie_detail = movie_content.objects.get(movie_id = movie_id)
+            get_review1 = movie_review.objects.filter(movie=get_movie_detail).order_by('-created_date')
+            get_review = movie_review.objects.filter(movie=get_movie_detail).order_by('-created_date')
+            page = request.GET.get('page', 1)
+            
+            paginator = Paginator(get_review,20)
+            try:
+                get_review_detail = paginator.page(page)
+            except PageNotAnInteger:
+                get_review_detail = paginator.page(1)
+            except EmptyPage:
+                get_review_detail = paginator.page(paginator.num_pages)
+            
+            all_review = movie_review.objects.filter(movie = movie_id).aggregate(Avg('rating'))
+            get_member = movie_review.objects.filter(member = user) & movie_review.objects.filter(movie = get_movie_detail)
+            get_member_watchlist = movies_watchlist.objects.filter(member = user) & movies_watchlist.objects.filter(movie = get_movie_detail)
+            get_multiple_movie = multiple_audio_movies.objects.filter(movie=movie_id)
+            return render(request,'movie-detail.html',{'get_movie_detail':get_movie_detail,
+                                                    'get_review_detail':get_review_detail,
+                                                    'all_review':all_review,'get_member':get_member,
+                                                    'get_member_watchlist':get_member_watchlist,
+                                                    'get_multiple_movie':get_multiple_movie,
+                                                    'get_review1':get_review1
+                                                    })
+        return redirect('videosub:loginreg')
+
         
-        paginator = Paginator(get_review,20)
-        try:
-            get_review_detail = paginator.page(page)
-        except PageNotAnInteger:
-            get_review_detail = paginator.page(1)
-        except EmptyPage:
-            get_review_detail = paginator.page(paginator.num_pages)
-        
-        all_review = movie_review.objects.filter(movie = movie_id).aggregate(Avg('rating'))
-        get_member = movie_review.objects.filter(member = user) & movie_review.objects.filter(movie = get_movie_detail)
-        get_member_watchlist = movies_watchlist.objects.filter(member = user) & movies_watchlist.objects.filter(movie = get_movie_detail)
-        get_multiple_movie = multiple_audio_movies.objects.filter(movie=movie_id)
-        return render(request,'movie-detail.html',{'get_movie_detail':get_movie_detail,
-                                                   'get_review_detail':get_review_detail,
-                                                   'all_review':all_review,'get_member':get_member,
-                                                   'get_member_watchlist':get_member_watchlist,
-                                                   'get_multiple_movie':get_multiple_movie,
-                                                   'get_review1':get_review1
-                                                   })
-    
     def post(self,request,movie_id,*args, **kwargs):
         get_movie_detail = movie_content.objects.get(movie_id = movie_id)
         # get_watchlist = movies_watchlist.o
@@ -699,35 +706,38 @@ class edit_review(View):
         
 class webseries_detail(View):
     def get(self,request,webseries_id,*args, **kwargs):
-        data = member_record.objects.all()
-        user = data.get(uname = request.session['member_id'])
-        get_webseries_detail = webseries_content.objects.filter(webseries_id = webseries_id)
-        get_webseries = webseries_content.objects.get(webseries_id = webseries_id)
-        get_webseries_season = webseries_season.objects.filter(webseries_id = webseries_id)
-        get_webseries_season_episode = webseries_season_episode.objects.filter(webseries_id = webseries_id).order_by('webseries_season_id')
-        get = get_webseries_season_episode.values('webseries_season_id')
-        avg_review = webseries_review.objects.filter(webseries = webseries_id).aggregate(Avg('rating'))
-        get_member_review = webseries_review.objects.filter(member = user) & webseries_review.objects.filter(webseries = get_webseries)
-        get_member_watchlist = webseries_watchlist.objects.filter(member = user) & webseries_watchlist.objects.filter(webseries = get_webseries)
-        get_review1 = webseries_review.objects.filter(webseries=get_webseries).order_by('-created_date')
-        get_review = webseries_review.objects.filter(webseries=get_webseries).order_by('-created_date')
-        
-        page = request.GET.get('page', 1)
-        
-        paginator = Paginator(get_review,20)
-        try:
-            get_review_detail = paginator.page(page)
-        except PageNotAnInteger:
-            get_review_detail = paginator.page(1)
-        except EmptyPage:
-            get_review_detail = paginator.page(paginator.num_pages)
-        
-        return render(request,'webseries_detail.html',{'get_webseries_detail':get_webseries_detail,'get_webseries_season':get_webseries_season,
-                                                       'get_webseries_season_episode':get_webseries_season_episode,
-                                                       'get_member_review':get_member_review,'avg_review':avg_review,
-                                                       'get_member_watchlist':get_member_watchlist,
-                                                       'get_review_detail':get_review_detail,'get_review1':get_review1
-                                                       })
+        if request.session.has_key('member_id'):
+            data = member_record.objects.all()
+            user = data.get(uname = request.session['member_id'])
+            get_webseries_detail = webseries_content.objects.filter(webseries_id = webseries_id)
+            get_webseries = webseries_content.objects.get(webseries_id = webseries_id)
+            get_webseries_season = webseries_season.objects.filter(webseries_id = webseries_id)
+            get_webseries_season_episode = webseries_season_episode.objects.filter(webseries_id = webseries_id).order_by('webseries_season_id')
+            get = get_webseries_season_episode.values('webseries_season_id')
+            avg_review = webseries_review.objects.filter(webseries = webseries_id).aggregate(Avg('rating'))
+            get_member_review = webseries_review.objects.filter(member = user) & webseries_review.objects.filter(webseries = get_webseries)
+            get_member_watchlist = webseries_watchlist.objects.filter(member = user) & webseries_watchlist.objects.filter(webseries = get_webseries)
+            get_review1 = webseries_review.objects.filter(webseries=get_webseries).order_by('-created_date')
+            get_review = webseries_review.objects.filter(webseries=get_webseries).order_by('-created_date')
+            
+            page = request.GET.get('page', 1)
+            
+            paginator = Paginator(get_review,20)
+            try:
+                get_review_detail = paginator.page(page)
+            except PageNotAnInteger:
+                get_review_detail = paginator.page(1)
+            except EmptyPage:
+                get_review_detail = paginator.page(paginator.num_pages)
+            
+            return render(request,'webseries_detail.html',{'get_webseries_detail':get_webseries_detail,'get_webseries_season':get_webseries_season,
+                                                        'get_webseries_season_episode':get_webseries_season_episode,
+                                                        'get_member_review':get_member_review,'avg_review':avg_review,
+                                                        'get_member_watchlist':get_member_watchlist,
+                                                        'get_review_detail':get_review_detail,'get_review1':get_review1
+                                                        })
+        return redirect('videosub:loginreg')
+
     
     def post(self,request,webseries_id,*args, **kwargs):
         get_webseries_detail = webseries_content.objects.get(webseries_id = webseries_id)
@@ -782,77 +792,85 @@ class edit_webseries_review(View):
 
 class webseries_season_episode_detail(View):
     def get(self,request,season_episode_id,*args, **kwargs):
-        get_webseries_season_episode = webseries_season_episode.objects.filter(webseries_season_episode_id = season_episode_id)
-        return render(request,'webseries_season_episode_detail.html',{'get_webseries_season_episode':get_webseries_season_episode})
-    
-    def post(self,request,*args, **kwargs):
-        pass
+        if request.session.has_key('member_id'):
+            get_webseries_season_episode = webseries_season_episode.objects.filter(webseries_season_episode_id = season_episode_id)
+            return render(request,'webseries_season_episode_detail.html',{'get_webseries_season_episode':get_webseries_season_episode})
+        return redirect('videosub:loginreg')
+
+
 
 class movies_show(View):
     def get(self,request,movie_show_id,movie_lang_id,*args, **kwargs):
-        get_movie_show = multiple_audio_movies.objects.filter(movie = movie_show_id)& multiple_audio_movies.objects.filter(language = movie_lang_id)
-        return render(request,'movie-show.html',{'get_movie_show':get_movie_show})
-    
-    def post(self,request,*args, **kwargs):
-        pass
+        if request.session.has_key('member_id'):
+            get_movie_show = multiple_audio_movies.objects.filter(movie = movie_show_id)& multiple_audio_movies.objects.filter(language = movie_lang_id)
+            return render(request,'movie-show.html',{'get_movie_show':get_movie_show})
+        return redirect('videosub:loginreg')
+
     
 class language_media(View):
     def get(self,request,language_id,*args, **kwargs):
-        get_lang= language.objects.get(language_id=language_id)
-        get_movie = multiple_audio_movies.objects.filter(language=language_id).order_by('movie__release_date').reverse()
-        page = request.GET.get('page', 1)
-        
-        paginator = Paginator(get_movie,16)
-        try:
-            get_movie_lang = paginator.page(page)
-        except PageNotAnInteger:
-            get_movie_lang = paginator.page(1)
-        except EmptyPage:
-            get_movie_lang = paginator.page(paginator.num_pages)
+        if request.session.has_key('member_id'):
+            get_lang= language.objects.get(language_id=language_id)
+            get_movie = multiple_audio_movies.objects.filter(language=language_id).order_by('movie__release_date').reverse()
+            page = request.GET.get('page', 1)
             
-        get_webseries = webseries_season_episode.objects.filter(language=language_id).order_by('webseries_season_id__release_date').reverse()
-        page = request.GET.get('page', 1)
-        
-        paginator = Paginator(get_webseries,16)
-        try:
-            get_webseries_lang = paginator.page(page)
-        except PageNotAnInteger:
-            get_webseries_lang = paginator.page(1)
-        except EmptyPage:
-            get_webseries_lang = paginator.page(paginator.num_pages)    
-        return render(request,'language_wise.html',{'get_lang':get_lang,'get_movie_lang':get_movie_lang,
-                                                    'get_webseries_lang':get_webseries_lang})
+            paginator = Paginator(get_movie,16)
+            try:
+                get_movie_lang = paginator.page(page)
+            except PageNotAnInteger:
+                get_movie_lang = paginator.page(1)
+            except EmptyPage:
+                get_movie_lang = paginator.page(paginator.num_pages)
+                
+            get_webseries = webseries_season_episode.objects.filter(language=language_id).order_by('webseries_season_id__release_date').reverse()
+            page = request.GET.get('page', 1)
+            
+            paginator = Paginator(get_webseries,16)
+            try:
+                get_webseries_lang = paginator.page(page)
+            except PageNotAnInteger:
+                get_webseries_lang = paginator.page(1)
+            except EmptyPage:
+                get_webseries_lang = paginator.page(paginator.num_pages)    
+            return render(request,'language_wise.html',{'get_lang':get_lang,'get_movie_lang':get_movie_lang,
+                                                        'get_webseries_lang':get_webseries_lang})
+        return redirect('videosub:loginreg')
+
  
 class all_movies(View):
     def get(self,request,*args, **kwargs):
-        all_movies = movie_content.objects.all().order_by('-release_date')
-        page = request.GET.get('page', 1)
-        
-        paginator = Paginator(all_movies,16)
-        try:
-            get_all_movies = paginator.page(page)
-        except PageNotAnInteger:
-            get_all_movies = paginator.page(1)
-        except EmptyPage:
-            get_all_movies = paginator.page(paginator.num_pages)
-        return render(request,'all_movies.html',{'get_all_movies':get_all_movies})
-        
+        if request.session.has_key('member_id'):
+            all_movies = movie_content.objects.all().order_by('-release_date')
+            page = request.GET.get('page', 1)
+            
+            paginator = Paginator(all_movies,16)
+            try:
+                get_all_movies = paginator.page(page)
+            except PageNotAnInteger:
+                get_all_movies = paginator.page(1)
+            except EmptyPage:
+                get_all_movies = paginator.page(paginator.num_pages)
+            return render(request,'all_movies.html',{'get_all_movies':get_all_movies})
+        return redirect('videosub:loginreg')
+    
     
 class all_webseries(View):
     def get(self,request,*args, **kwargs):
-        all_webseries = webseries_content.objects.all().order_by('-release_date')
-        page = request.GET.get('page', 1)
-        
-        paginator = Paginator(all_webseries,16)
-        try:
-            get_all_webseries = paginator.page(page)
-        except PageNotAnInteger:
-            get_all_webseries = paginator.page(1)
-        except EmptyPage:
-            get_all_webseries = paginator.page(paginator.num_pages)
-        
-        return render(request,'all_webseries.html',{'get_all_webseries':get_all_webseries})
-    
+        if request.session.has_key('member_id'):
+            all_webseries = webseries_content.objects.all().order_by('-release_date')
+            page = request.GET.get('page', 1)
+            
+            paginator = Paginator(all_webseries,16)
+            try:
+                get_all_webseries = paginator.page(page)
+            except PageNotAnInteger:
+                get_all_webseries = paginator.page(1)
+            except EmptyPage:
+                get_all_webseries = paginator.page(paginator.num_pages)
+            
+            return render(request,'all_webseries.html',{'get_all_webseries':get_all_webseries})
+        return redirect('videosub:loginreg')
+
     
 class watchlist(View):
     def post(self,request,movie_id,*args, **kwargs):
@@ -906,7 +924,10 @@ class delete_web_watchlist(View):
 
 class contact(View):
     def get(self,request,*args, **kwargs):
-        return render(request,'contact.html')
+        if request.session.has_key('member_id'):
+            return render(request,'contact.html')
+        return redirect('videosub:loginreg')
+
     
     def post(self,request,*args, **kwargs):
         i  = False
@@ -930,8 +951,10 @@ class contact(View):
         
 class request_movie(View):
     def get(self,request,*args, **kwargs):
-        return render(request,'request_movie.html')
-    
+        if request.session.has_key('member_id'):
+            return render(request,'request_movie.html')
+        return redirect('videosub:loginreg')
+
     def post(self,request,*args, **kwargs):
         i  = False
         if request.method == 'POST':
@@ -954,8 +977,10 @@ class request_movie(View):
 
 class PasswordChange(View):
     def get(self,request,*args, **kwargs):
-        return render(request,'change-password.html')
-    
+        if request.session.has_key('member_id'):
+            return render(request,'change-password.html')
+        return redirect('videosub:loginreg')
+
     def post(self,request,*args, **kwargs):
         if request.method == 'POST':
             data = member_record.objects.all()
@@ -983,21 +1008,22 @@ class PasswordChange(View):
 
 class searchview(View):
     def get(self,request,*args, **kwargs):   
-        if request.method == 'GET': # this will be GET now      
-            search_text =  request.GET.get('search') 
-            if movie_content.objects.filter(movie_name__icontains=search_text):
-                get_result_movie = movie_content.objects.filter(movie_name__icontains=search_text)
-                print(get_result_movie)
-                return render(request,"search_template.html",{'get_result_movie':get_result_movie})
-            else:
-                if webseries_content.objects.filter(webseries_name__icontains=search_text):
-                    get_result_webseries = webseries_content.objects.filter(webseries_name__icontains=search_text)
-                    print(get_result_webseries)
-                    return render(request,"search_template.html",{'get_result_webseries':get_result_webseries})
+        if request.session.has_key('member_id'):
+            if request.method == 'GET': # this will be GET now      
+                search_text =  request.GET.get('search') 
+                if movie_content.objects.filter(movie_name__icontains=search_text):
+                    get_result_movie = movie_content.objects.filter(movie_name__icontains=search_text)
+                    print(get_result_movie)
+                    return render(request,"search_template.html",{'get_result_movie':get_result_movie})
                 else:
-                    i=True
-                    return render(request,"search_template.html",{'i':i})
-        else:
-            return render(request,"search_template.html",{})
-                    
+                    if webseries_content.objects.filter(webseries_name__icontains=search_text):
+                        get_result_webseries = webseries_content.objects.filter(webseries_name__icontains=search_text)
+                        print(get_result_webseries)
+                        return render(request,"search_template.html",{'get_result_webseries':get_result_webseries})
+                    else:
+                        i=True
+                        return render(request,"search_template.html",{'i':i})
+            else:
+                return render(request,"search_template.html",{})
+        return redirect('videosub:loginreg')            
                 
