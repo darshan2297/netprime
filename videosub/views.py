@@ -10,7 +10,8 @@ from NP_admin.models import (
                 movie_content,movies_csv_content,webseries_content,webseries_season,
                 webseries_season_episode,cast,crew,movies_watchlist,movie_review,
                 webseries_review,webseries_watchlist,Transaction,renewmember,multiple_audio_movies,
-                language
+                language,movie_download_link,webseries_download_link,movie_link_detail,
+                webseries_link_details
 )
 from django.db.models import Avg
 from django.contrib import messages
@@ -974,6 +975,53 @@ class request_movie(View):
             i = True
             
             return render(request,'request_movie.html',{'i':i}) 
+
+class download_link(View):
+    def get(self,request,*args, **kwargs):
+        if request.session.has_key('member_id'):
+            all_movie_link = movie_download_link.objects.all().order_by('-release_date')
+            page = request.GET.get('page', 1)
+            
+            paginator = Paginator(all_movie_link,12)
+            try:
+                get_movie_link = paginator.page(page)
+            except PageNotAnInteger:
+                get_movie_link = paginator.page(1)
+            except EmptyPage:
+                get_movie_link = paginator.page(paginator.num_pages)
+                
+            all_webseries_link = webseries_download_link.objects.all().order_by('-season_release_date')
+            page = request.GET.get('page', 1)
+            
+            paginator = Paginator(all_webseries_link,12)
+            try:
+                get_webseries_link = paginator.page(page)
+            except PageNotAnInteger:
+                get_webseries_link = paginator.page(1)
+            except EmptyPage:
+                get_webseries_link = paginator.page(paginator.num_pages)
+            return render(request,'downlaod_link.html',{'get_movie_link':get_movie_link,'get_webseries_link':get_webseries_link})
+        return redirect('videosub:loginreg')
+
+class movie_link_details(View):
+    def get(self,request,link_id,*args, **kwargs):
+        if request.session.has_key('member_id'):
+            movie_download = movie_download_link.objects.get(movie_download_link_id = link_id)
+            link_detail = movie_link_detail.objects.filter(movie_download_link_id = link_id)
+            return render(request,'downlaod_link_detail.html',{'link_detail':link_detail,
+                                                               'movie_download':movie_download}
+                          )
+        return redirect('videosub:loginreg')
+
+class webseries_link_detail(View):
+    def get(self,request,link_id,*args, **kwargs):
+        if request.session.has_key('member_id'):
+            webseries_download = webseries_download_link.objects.get(webseries_download_link_id = link_id)
+            link_detail = webseries_link_details.objects.filter(webseries_download_link_id = link_id)
+            return render(request,'webseries_link_detail.html',{'link_detail':link_detail,
+                                                               'webseries_download':webseries_download}
+                          )
+        return redirect('videosub:loginreg')
 
 class PasswordChange(View):
     def get(self,request,*args, **kwargs):

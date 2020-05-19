@@ -12,7 +12,7 @@ from videosub.views import (
     webseries_season_episode_detail,watchlist,edit_review,delete_watchlist,edit_webseries_review,
     web_watchlist,delete_web_watchlist,all_webseries,language_media,PasswordChange,renewmembership,
     renewpage,renewhandlerequest,passwordreset_1ststep,passwordreset_2ndstep,passwordreset_3rdstep,
-    request_movie,searchview,
+    request_movie,searchview,download_link,movie_link_details,webseries_link_detail
 )
 
 from . import views
@@ -48,6 +48,9 @@ urlpatterns = [
     path('language_wise/<language_id>',language_media.as_view(),name='language_media'),
     path('all-movies',all_movies.as_view(),name='all_movies'),
     path('all_webseries',all_webseries.as_view(),name='all_webseries'),
+    path('download_link',download_link.as_view(),name='download_link'),
+    path('movie_download_link_detail/<link_id>',movie_link_details.as_view(),name='movie_link_detail'),
+    path('webseries_download_link_detail/<link_id>',webseries_link_detail.as_view(),name='webseries_link_detail'),
     path('contact',contact.as_view(),name='contact'),
     path('request',request_movie.as_view(),name='request_movie'),
     path('search/',searchview.as_view(),name='search'),

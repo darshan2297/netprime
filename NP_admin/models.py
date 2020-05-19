@@ -161,7 +161,42 @@ class webseries_season_episode(models.Model):
                                  self.episode_name,self.language.language)
 
    
+class movie_download_link(models.Model):
+    movie_download_link_id = models.AutoField(primary_key=True)
+    movie_name = models.CharField(max_length= 100)
+    release_date = models.DateField(null = True,blank=True)
+    description = models.TextField(max_length = 1500)
+    movie_poster =  models.ImageField(upload_to='movie_poster',null = True,blank=True)
 
+    def __str__(self):
+        return self.movie_name
+
+class movie_link_detail(models.Model):
+    movie_download_link_id = models.ForeignKey(movie_download_link,on_delete = models.CASCADE,null = True)
+    title = models.CharField(max_length= 100,null = True,blank=True)
+    link = models.URLField(null = True,blank=True)
+
+    def __str__(self):
+        return '{} {}'.format(self.movie_download_link_id.movie_name, self.title)
+    
+class webseries_download_link(models.Model):
+    webseries_download_link_id = models.AutoField(primary_key=True)
+    webseries_name = models.CharField(max_length= 100)
+    season_release_date = models.DateField(null = True,blank=True)
+    season = models.CharField(max_length= 100,null = True,blank=True)
+    description = models.TextField(max_length = 1500)
+    webseries_poster =  models.ImageField(upload_to='webseries_poster',null = True,blank=True)
+
+    def __str__(self):
+        return '{} {}'.format(self.webseries_name,self.season)
+
+class webseries_link_details(models.Model):
+    webseries_download_link_id = models.ForeignKey(webseries_download_link,on_delete = models.CASCADE,null = True)
+    episode = models.CharField(max_length= 100)
+    link = models.URLField(null = True,blank=True)
+    
+    def __str__(self):
+        return '{} {} {}'.format(self.webseries_download_link_id.webseries_name,self.webseries_download_link_id.season,self.episode)
     
 class movie_review(models.Model):
     movie_review_id = models.AutoField(primary_key=True)

@@ -52,6 +52,9 @@
         .card a img{
             border-radius: 0px !important;
         }
+        .header-area .egames-main-menu .classy-navbar .classynav ul li a{
+            font-size:15px !important;
+        }
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699580-1"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script> -->
@@ -144,7 +147,7 @@
                             </div>
 
                             <!-- Nav Start -->
-                            <div class="classynav">
+                            <div class="classynav font-weight-normal">
                                 <ul class="">
                                     <li><a href="{% url 'videosub:home' %}">Home</a></li>
                                     <li><a style="cursor: pointer;">Movies</a>
@@ -174,6 +177,7 @@
                                             {% endfor %}
                                         </ul>
                                     </li>
+                                    <li><a href="{% url 'videosub:download_link' %}">Down.link</a></li>
                                     <li><a href="{% url 'videosub:request_movie' %}">Movie Request</a></li>
                                     <li><a href="{% url 'videosub:contact' %}">Contact</a></li>
                                 

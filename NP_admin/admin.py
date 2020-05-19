@@ -3,8 +3,9 @@ from django.contrib import admin
 # Register your models here.
 from NP_admin.models import (
     register_admin,main_catagory,sub_catagory,type_catagory,movie_content,
-    webseries_content,movies_csv_content,webseries_season,webseries_season_episode,cast,crew,movies_watchlist,movie_review,webseries_review,webseries_watchlist,Transaction,renewmember,
-    language,multiple_audio_movies
+    webseries_content,movies_csv_content,webseries_season,webseries_season_episode,
+    cast,crew,movies_watchlist,movie_review,webseries_review,webseries_watchlist,Transaction,renewmember,
+    language,multiple_audio_movies,movie_download_link,webseries_download_link,movie_link_detail,webseries_link_details
     )
 
 admin.site.register(register_admin)
@@ -25,4 +26,8 @@ admin.site.register(webseries_watchlist)
 admin.site.register(webseries_review)
 admin.site.register(Transaction)
 admin.site.register(renewmember)
+admin.site.register(movie_download_link)
+admin.site.register(movie_link_detail)
+admin.site.register(webseries_download_link)
+admin.site.register(webseries_link_details)
 admin.site.register(movies_csv_content)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'master.html' %}
+
+<!-- titile -->
+{% block title %} Downloads Link {% endblock %}
+
+{% block css %}
+<style>
+  .nav-tabs .nav-link{
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  padding-left: 20px !important;
+  padding-top: 13px !important;
+  padding-bottom: 13px !important;
+  padding-right: 20px !important;
+  border-radius: 0px !important;
+  }
+
+ .nav-tabs .nav-link.active {
+  padding-left: 20px !important;
+  padding-top: 13px !important;
+  padding-bottom: 13px !important;
+  padding-right: 20px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  background-color: #f82249 !important;
+  color: white !important; 
+  border-radius: 0px !important;
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="bg-pattern2">
+  <div class="container pb-5">
+    <div class="card">
+        <div class="card-body">
+        <h3 class="card-title text-center">{{webseries_download.webseries_name}}</h3>
+        <p class="card-text text-center">{{webseries_download.description}}</p>
+        <center><img src="{{webseries_download.webseries_poster.url}}" alt="Netprime" style="height: 230px; width: 450px;"></center>
+        <h6 class=" text-center mt-3" style="color: black;">-------------Download Links-------------</h6>    
+        <div class="row">
+                {% for i in link_detail %}
+                <div class="col-6 col-md-3">
+                    <p class="text-center mt-3"><b class="text-black">{{i.episode}}:</b><small><a href="{{i.link}}" style="color: blue;">{{i.link}}</a></small></p>
+                </div>
+                {% endfor %}  
+            </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}
