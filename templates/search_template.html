@@ -32,19 +32,9 @@
     </div>
     {% else %}
     <div class="container mt-5 mb-5">
-        {% if get_result_movie %}
-            <h1 class="text-center">Watch Movie</h1>
-        {% endif %}
-        {% if get_result_movie_link %}
-            <h1 class="text-center">Movie Download Link</h1>
-        {% endif %}
-        {% if get_result_webseries %}
-            <h1 class="text-center">Watch Webseries</h1>
-        {% endif %}
-        {% if get_result_webseries_link %}
-            <h1 class="text-center">Webseries Download Link</h1>
+    {% if get_result_movie %}
+        <h1 class="text-center">Watch Movie</h1>
     {% endif %}
-
     <div class="row">
     {% if get_result_movie or get_result_movie_link %}
     {% for m in get_result_movie %}
@@ -68,7 +58,12 @@
         </div>
     </div>
     {% endfor %}
-   
+    </div>
+
+    {% if get_result_movie_link %}
+    <h1 class="text-center">Movie Download Link</h1>
+    {% endif %}
+    <div class="row">
     {% for ml in get_result_movie_link %}  
     <div class="col-12 col-md-3">
         <div class="card-deck mb-5">
@@ -85,11 +80,15 @@
     </div>
     </div>
     {% endfor %}
+</div>
 
 
     {% else %}
+    {% if get_result_webseries %}
+        <h1 class="text-center">Watch Webseries</h1>
+    {% endif %}
     {% if get_result_webseries or get_result_webseries_link %}
-  
+    <div class="row">
     {% for w in get_result_webseries %}
     <div class="col-12 col-md-3">
         <div class="card-deck mb-5">
@@ -108,7 +107,11 @@
         </div>
     </div>
     {% endfor %}
-    
+    </div>
+    {% if get_result_webseries_link %}
+            <h1 class="text-center">Webseries Download Link</h1>
+    {% endif %}
+    <div>
     {% for wl in get_result_webseries_link %}
     <div class="col-12 col-md-3 mb-4">
         <div class="card-deck">
@@ -124,11 +127,10 @@
     </div>
     </div>
     {% endfor %}
-
+    </div>
     {% endif %}
     {% endif %}
     {% endif %}
-</div>
 </div>
 </div>
   
