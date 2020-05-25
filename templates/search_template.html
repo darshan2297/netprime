@@ -39,7 +39,7 @@
     {% if get_result_movie or get_result_movie_link %}
     {% for m in get_result_movie %}
     <div class="col-12 col-md-3">
-        <div class="card-deck">
+        <div class="card-deck mb-5">
       
             <div class="card">
             <!-- <div class="card-body">movie_postemovie_posterr
@@ -66,7 +66,7 @@
     <div class="row">
     {% for ml in get_result_movie_link %}  
     <div class="col-12 col-md-3">
-        <div class="card-deck">
+        <div class="card-deck mb-5">
       <div class="card">
         <a href="{% url 'videosub:movie_link_detail' ml.movie_download_link_id %}"><img style="border-radius: 0px;" src="{{ml.movie_poster.url}}" class="card-img-top" alt="...">
        <ul class="list-group list-group-flush">
@@ -90,8 +90,8 @@
     {% if get_result_webseries or get_result_webseries_link %}
     <div class="row">
     {% for w in get_result_webseries %}
-    <div class="col-12 col-md-3">
-        <div class="card-deck">
+    <div class="col-12 col-md-3 ">
+        <div class="card-deck mb-5">
       
             <div class="card">
               <a href="{% url 'videosub:webseries-detail' w.webseries_id %}"><img src="{{w.webseries_bgimage.url}}" class="card-img-top" alt="..."></a>
@@ -114,7 +114,7 @@
     <div>
     {% for wl in get_result_webseries_link %}
     <div class="col-12 col-md-3 mb-4">
-        <div class="card-deck">
+        <div class="card-deck mb-5">
             <div class="card">
                 <a href="{% url 'videosub:webseries_link_detail' wl.webseries_download_link_id %}"><img style="border-radius: 0px;" src="{{wl.webseries_poster.url}}" class="card-img-top" alt="...">
                 <ul class="list-group list-group-flush">
