@@ -11,7 +11,7 @@ from NP_admin.models import (
                 webseries_season_episode,cast,crew,movies_watchlist,movie_review,
                 webseries_review,webseries_watchlist,Transaction,renewmember,multiple_audio_movies,
                 language,movie_download_link,webseries_download_link,movie_link_detail,
-                webseries_link_details
+                webseries_link_details,
 )
 from django.db.models import Avg
 from django.contrib import messages
@@ -1059,15 +1059,16 @@ class searchview(View):
         if request.session.has_key('member_id'):
             if request.method == 'GET': # this will be GET now      
                 search_text =  request.GET.get('search') 
-                if movie_content.objects.filter(movie_name__icontains=search_text):
+                if movie_content.objects.filter(movie_name__icontains=search_text) or movie_download_link.objects.filter(movie_name__icontains=search_text):
                     get_result_movie = movie_content.objects.filter(movie_name__icontains=search_text)
-                    print(get_result_movie)
-                    return render(request,"search_template.html",{'get_result_movie':get_result_movie})
+                    get_result_movie_link = movie_download_link.objects.filter(movie_name__icontains=search_text)
+                    return render(request,"search_template.html",{'get_result_movie':get_result_movie,'get_result_movie_link':get_result_movie_link})
                 else:
-                    if webseries_content.objects.filter(webseries_name__icontains=search_text):
+                    if webseries_content.objects.filter(webseries_name__icontains=search_text) or webseries_download_link.objects.filter(webseries_name__icontains=search_text):
                         get_result_webseries = webseries_content.objects.filter(webseries_name__icontains=search_text)
+                        get_result_webseries_link = webseries_download_link.objects.filter(webseries_name__icontains=search_text)
                         print(get_result_webseries)
-                        return render(request,"search_template.html",{'get_result_webseries':get_result_webseries})
+                        return render(request,"search_template.html",{'get_result_webseries':get_result_webseries,'get_result_webseries_link':get_result_webseries_link})
                     else:
                         i=True
                         return render(request,"search_template.html",{'i':i})

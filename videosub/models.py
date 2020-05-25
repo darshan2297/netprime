@@ -77,7 +77,6 @@ class Transaction(models.Model):
         return super().save(*args, **kwargs)
 
 
-    
 class subscription(models.Model):
     sid = models.AutoField(primary_key=True)
     user_member = models.ForeignKey(member_record,on_delete=models.CASCADE,null=True)
