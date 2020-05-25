@@ -48,7 +48,7 @@
               <a href="{% url 'videosub:movies-detail' m.movie_id %}"><img src="{{m.movie_bgimage.url}}" class="card-img-top" alt="..."></a>
               <div class="card-body p-0 pt-2" style="background-color: transparent !important;">
               <a href="{% url 'videosub:movies-detail' m.movie_id %}" class="nav-link"><h6 class="mb-0">{{ m.movie_name |upper }}</h6></a>
-              <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{m.rating}}/10</p>
+              <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{m.rating|stringformat:"f"|slice:"0:4"}}/10</p>
                   <div class="nav">
                       <a href="{% url 'videosub:catagory_list' m.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{m.sub_catagory|upper }}</a>    
                       <a href="{% url 'videosub:movies_catagory_movie' m.type_catagory1.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{m.type_catagory1|upper }}</a>
@@ -97,7 +97,7 @@
               <a href="{% url 'videosub:webseries-detail' w.webseries_id %}"><img src="{{w.webseries_bgimage.url}}" class="card-img-top" alt="..."></a>
               <div class="card-body p-0 pt-2" style="background-color: transparent !important;">
               <a href="{% url 'videosub:webseries-detail' w.webseries_id %}" class="nav-link"><h6 class="mb-0">{{ w.webseries_name |upper }}</h6></a>
-              <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{w.rating}}/10</p>
+              <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{w.rating|stringformat:"f"|slice:"0:4"}}/10</p>
                   <div class="nav">
                       <a href="{% url 'videosub:catagory_list' w.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{w.sub_catagory|upper }}</a>    
                       <a href="{% url 'videosub:movies_catagory_movie' w.type_catagory.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{w.type_catagory|upper }}</a>

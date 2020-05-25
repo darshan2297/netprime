@@ -13,7 +13,7 @@ from NP_admin.models import (
                 language,movie_download_link,webseries_download_link,movie_link_detail,
                 webseries_link_details,
 )
-from django.db.models import Avg
+from django.db.models import Avg, F
 from django.contrib import messages
 from django.template import RequestContext
 from django.contrib.sessions.models import Session
@@ -641,6 +641,7 @@ class movies_detail(View):
                 get_review_detail = paginator.page(paginator.num_pages)
             
             all_review = movie_review.objects.filter(movie = movie_id).aggregate(Avg('rating'))
+           
             get_member = movie_review.objects.filter(member = user) & movie_review.objects.filter(movie = get_movie_detail)
             get_member_watchlist = movies_watchlist.objects.filter(member = user) & movies_watchlist.objects.filter(movie = get_movie_detail)
             get_multiple_movie = multiple_audio_movies.objects.filter(movie=movie_id)

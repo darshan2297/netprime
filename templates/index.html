@@ -47,7 +47,7 @@
                             <div class="blog-content" data-animation="fadeInUp" data-delay="100ms">
                                 <h2 class="text-white" data-animation="fadeInUp" data-delay="400ms">{{i.movie_name|upper}}</h2>
                                 <p data-animation="fadeInUp" data-delay="700ms">{{i.description|slice:"0:300"}}...</p>
-                                <p data-animation="fadeInUp" data-delay="700ms" style="color: #f82249;">{{i.duration_hours}} Hrs {{i.duration_minutes}} Mins | {{i.release_date}} | <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10 | {{i.language}} | {{ i.type_catagory1 }}</p>
+                                <p data-animation="fadeInUp" data-delay="700ms" style="color: #f82249;">{{i.duration_hours}} Hrs {{i.duration_minutes}} Mins | {{i.release_date}} | <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating|stringformat:"f"|slice:"0:4"}}/10 | {{i.language}} | {{ i.type_catagory1 }}</p>
                                 <div class="button-css nav mt-3">
                                     <a data-animation="fadeInUp" data-delay="700ms" href="{% url 'videosub:movies-detail' i.movie_id %}" role="button"><span>&nbsp;Watch Trailer Now</span> <i class="fa fa-video-camera" aria-hidden="true"></i></a>
                                     <!-- <a data-animation="fadeInUp" data-delay="700ms" href="" role="button"><span>&nbsp;Add to Mylist+</span> <i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
@@ -67,7 +67,7 @@
                             <div class="blog-content" data-animation="fadeInUp" data-delay="100ms">
                                 <h2 class="text-white" data-animation="fadeInUp" data-delay="400ms">{{i.webseries_name|upper}}</h2>
                                 <p data-animation="fadeInUp" data-delay="700ms">{{i.description|slice:"0:300"}}...</p>
-                                <p data-animation="fadeInUp" data-delay="700ms" style="color: #f82249;">{{i.release_date}} | <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10 | {{i.language}} | {{ i.type_catagory }}</p>
+                                <p data-animation="fadeInUp" data-delay="700ms" style="color: #f82249;">{{i.release_date}} | <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating|stringformat:"f"|slice:"0:4"}}/10 | {{i.language}} | {{ i.type_catagory }}</p>
                                 <div class="button-css nav mt-3">
                                     <a data-animation="fadeInUp" data-delay="700ms" href="{% url 'videosub:webseries-detail' i.webseries_id %}" role="button"><span>&nbsp;Watch Webseries Now</span> <i class="fa fa-video-camera" aria-hidden="true"></i></a>
                                     <!-- <a data-animation="fadeInUp" data-delay="700ms" href="" role="button"><span>&nbsp;Add to Mylist+</span> <i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
@@ -119,7 +119,7 @@
                         <div class="slide-text">
                             <a href="{% url 'videosub:movies-detail' i.movie_id %}" class="game-title">{{i.movie_name|upper}}</a>
                             <div class="meta-data">
-                                <a>User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</a>
+                                <a>User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating|stringformat:"f"|slice:"0:4"}}/10</a>
                                 <a href="{% url 'videosub:catagory_list' i.sub_catagory.sub_id %}">{{i.sub_catagory}}</a>
                                 <a href="{% url 'videosub:movies_catagory_movie' i.type_catagory1.type_id %}">{{i.type_catagory1}}</a>
                             </div>
@@ -141,7 +141,7 @@
                         <div class="slide-text">
                             <a href="{% url 'videosub:webseries-detail' i.webseries_id %}" class="game-title">{{i.webseries_name|upper}}</a>
                             <div class="meta-data">
-                                <a>User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</a>
+                                <a>User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating|stringformat:"f"|slice:"0:4"}}/10</a>
                                 <a href="{% url 'videosub:catagory_list' i.sub_catagory.sub_id %}">{{i.sub_catagory}}</a>
                                 <a href="{% url 'videosub:movies_catagory_movie' i.type_catagory.type_id %}">{{i.type_catagory}}</a>
                             </div>
@@ -219,7 +219,7 @@
                     <a href="{% url 'videosub:movies-detail' i.movie_id %}" ><img src="{{i.movie_bgimage.url}}" class="card-img-top" alt="..."> </a>
                   <div class="card-body p-0 pt-2 border-0" style="background-color: transparent !important;">
                     <a href="{% url 'videosub:movies-detail' i.movie_id %}" class="nav-link"><h6 class="mb-0">{{ i.movie_name |upper }}</h6></a>
-                    <p href="" class="nav-link mb-0 ">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</p>
+                    <p href="" class="nav-link mb-0 ">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating|stringformat:"f"|slice:"0:4"}}/10</p>
                         <div class="nav">
                             <a href="{% url 'videosub:catagory_list' i.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.sub_catagory|upper }}</a>    
                             <a href="{% url 'videosub:movies_catagory_movie' i.type_catagory1.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.type_catagory1|upper }}</a>
@@ -270,7 +270,7 @@
                         <a href="{% url 'videosub:webseries-detail' j.webseries_id %}" ><img src="{{j.webseries_bgimage.url}}" class="card-img-top" alt="..."></a>
                       <div class="card-body p-0 pt-2" style="background-color: transparent !important;">
                         <a href="{% url 'videosub:webseries-detail' j.webseries_id %}" class="nav-link"><h6 class="mb-0">{{ j.webseries_name |upper }}</h6></a>
-                        <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{j.rating}}/10</p>   
+                        <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{j.rating|stringformat:"f"|slice:"0:4"}}/10</p>   
                             <div class="nav">
                                 <a href="{% url 'videosub:catagory_list' j.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{j.sub_catagory|upper }}</a>    
                                 <a href="{% url 'videosub:movies_catagory_movie' j.type_catagory.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{j.type_catagory|upper }}</a>

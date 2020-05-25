@@ -21,7 +21,7 @@
         
         <div class="card-body p-0 pt-2" style="background-color: transparent !important;">
             <a href="{% url 'videosub:movies-detail' i.movie_id %}" class="nav-link"><h6 class="mb-0">{{ i.movie_name |upper }}</h6></a>
-            <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10</p>
+            <p href="" class="nav-link mb-0">User: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating|stringformat:"f"|slice:"0:4"}}/10</p>
             <div class="nav">
                 <a href="{% url 'videosub:catagory_list' i.sub_catagory.sub_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.sub_catagory|upper }}</a>    
                 <a href="{% url 'videosub:movies_catagory_movie' i.type_catagory1.type_id %}" class="nav-link" style="font-weight: normal; font-size: small; color: #939393;">{{i.type_catagory1|upper }}</a>

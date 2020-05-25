@@ -161,7 +161,7 @@
                         <p>Description: {{i.description}} <a target="blank" style="color: #f82249; font-size: small" href="{{i.more_info}}">Know More About {{i.webseries_name|upper}}</a></p>
                         <p>Category: {{ i.main_catagory }} | {{ i.sub_catagory }} | {{ i.type_catagory }}</p>
                         {% for key,value in avg_review.items %}
-                            <p>Avg Ratings: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{value}}/10</p>                
+                            <p>Avg Ratings: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{value|stringformat:"f"|slice:"0:4"}}/10</p>                
                         {% endfor %}
                         
                         {% if get_member_review %}

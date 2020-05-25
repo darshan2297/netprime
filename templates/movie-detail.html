@@ -138,12 +138,12 @@
                         <p>Description: {{get_movie_detail.description |slice:"0:200"}}... <a target="blank" style="color: #f82249; font-size: small" href="{{get_movie_detail.more_info}}">Know More About {{get_movie_detail.movie_name|upper}}</a></p>
                         <p>Category: {{ get_movie_detail.main_catagory }} | {{ get_movie_detail.sub_catagory }} | {{ get_movie_detail.type_catagory1 }}</p>
                         {% for key,value in all_review.items %}
-                            <p>Avg Ratings: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{value|slice:'0:4'}}/10</p>                
+                            <p>Avg Ratings: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{ value|stringformat:"f"|slice:"0:4" }}/10</p>                
                         {% endfor %}
 
                         {% if get_member %}
                             {% for i in get_member %}
-                                <p>Your Ratings: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating|slice:'0:4'}}/10 <a class="text-white"  style="font-size: small" href="" data-toggle="modal" data-target="#editreview">Edit</a></p><br>
+                                <p>Your Ratings: <i class="fa fa-star" style="color: gold;"></i>&nbsp;{{i.rating}}/10 <a class="text-white"  style="font-size: small" href="" data-toggle="modal" data-target="#editreview">Edit</a></p><br>
                                    
                                 <!-- Modal -->
                               <form action="{% url 'videosub:edit_review' i.movie.movie_id%}" method="POST" enctype="multipart/form-data">
@@ -291,10 +291,10 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-xl-8">
-                <h1 class="">{{get_movie_detail.movie_name|upper}}</h1> 
+                <h1 class="">{{get_movie_detail.movie_name|upper}}</h1>
                 <p>{{get_movie_detail.release_date}} | 
                     {% for key,value in all_review.items %}
-                    Ratings:<i class="fa fa-star" style="color: gold;"></i>&nbsp;{{ value|slice:'0:4' }}/10
+                    Ratings:<i class="fa fa-star" style="color: gold;"></i>&nbsp;{{ value|stringformat:"f"|slice:"0:4" }}/10
                     {% endfor %} | {{get_movie_detail.language}}</p>
  
                 <!-- <p class="justify-content-center">{{get_movie_detail.description}} <a target="blank" style="color: #f82249; font-size: medium;" href="{{get_movie_detail.more_info}}">Know More About {{get_movie_detail.movie_name|upper}}</a></p> -->
