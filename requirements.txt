@@ -58,7 +58,7 @@ pathtools==0.1.2
 paytm==0.1.8
 pexpect==4.2.1
 pickleshare==0.7.4
-Pillow==7.0.0
+Pillow==8.3.2
 pkg-resources==0.0.0
 prompt-toolkit==1.0.9
 psutil==5.7.0
