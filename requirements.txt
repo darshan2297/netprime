@@ -50,7 +50,7 @@ kombu==4.6.8
 mysql==0.0.2
 mysqlclient==1.4.6
 Naked==0.1.31
-numpy==1.18.1
+numpy==1.22.0
 oauthlib==3.1.0
 passlib==1.7.2
 pathlib2==2.1.0
